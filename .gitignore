@@ -1,0 +1,7 @@
+fdf_linux
+*.out
+.DS_Store
+*.o
+*.a
+fdf
+.vscode
