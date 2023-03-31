@@ -1,6 +1,8 @@
-FILES = main.c
+MAIN = main.c
+TOOLS = read_map.c
 
-OFILES = $(FILES:.c=.o)
+OMAIN = $(MAIN:.c=.o)
+OTOOLS = $(TOOLS:.c=.o)
 
 FDF = fdf
 
@@ -19,8 +21,8 @@ RED=\03
 
 all: $(FDF)
 
-$(FDF):$(OFILES) $(LIBFT) $(MLX42)
-	cc $(FLAGS) $(OFILES) $(LIBFT) $(MLX42) -o $(FDF)
+$(FDF):$(OMAIN) $(OTOOLS) $(LIBFT) $(MLX42)
+	cc $(FLAGS) $(OMAIN) $(OTOOLS) $(LIBFT) $(MLX42) -o $(FDF)
 	@printf "\n$(LIGHT_CYAN)Created executable $(FDF)$(RESET)\n\n"
 
 %.o: %.cc
@@ -33,7 +35,7 @@ $(MLX42):
 	make -C MLX42/build
 
 clean:
-	$(RM) $(OFILES)
+	$(RM) $(OMAIN) $(OTOOLS)
 	@printf "\n$(YELLOW)Removed object files$(RESET)\n\n"
 
 fclean: clean
