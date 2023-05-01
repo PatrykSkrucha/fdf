@@ -32,6 +32,7 @@ $(LIBFT):
 	make -C libft
 
 $(MLX42):
+	cd MLX42 cmake -B build
 	make -C MLX42/build
 
 clean:
