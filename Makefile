@@ -8,7 +8,7 @@ FDF = fdf
 
 HEADERS = -I ./include -I ./MLX42/include -I ./libft/libft.h
 LIBFT = libft/libft.a
-MLX42 = MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX42 = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
@@ -32,7 +32,6 @@ $(LIBFT):
 	make -C libft
 
 $(MLX42):
-	cd MLX42 cmake -B build
 	make -C MLX42/build
 
 clean:
