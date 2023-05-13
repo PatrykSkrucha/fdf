@@ -31,12 +31,13 @@ typedef struct map
 {
 	int				width;
 	int				height;
-	mlx_t			*window;
 	t_coordinate	**matrix;
 	t_isometric		**projection;
+	mlx_t			*window;
 	mlx_image_t		*image;
 } t_map;
 
 void	read_map(char *path, t_map **map);
+void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_image_t* img);
 
 #endif

@@ -15,22 +15,33 @@ void	allocate_map(t_map **map)
 	(*map)->height = 0;
 	(*map)->window = NULL;
 	(*map)->image = NULL;
+	(*map)->matrix = NULL;
+	(*map)->projection = NULL;
 }
 
-//int	**allocate_matrix(char *path)
-//{
-//	int	**matrix;
-//	int	width;
-//	int	height;
+void	allocate_matrix(t_map **map)
+{
+	int	i;
 
-//	width = 0;
-//	height = 0;
-//	matrix = NULL;
-//	get_size(path, &height, &width);
-//	return(matrix);
-//}
+	i = 0;
+	//ft_printf("h: %i w: %i", (*map)->height, (*map)->width);
+	(*map)->matrix = malloc(sizeof(t_coordinate*) * (*map)->height);
+	(*map)->projection = malloc(sizeof(t_isometric*) * (*map)->height);
+	while (i < (*map)->height)
+	{
+		(*map)->matrix[i] = malloc(sizeof(t_coordinate) * (*map)->width);
+		i++;
+	}
+	i = 0;
+	while (i < (*map)->height)
+	{
+		(*map)->projection[i] = malloc((*map)->width);
+		i++;
+	}
 
-void	check_input(char *path, t_map **map)
+}
+
+void	get_size(char *path, t_map **map)
 {
 	int	height;
 	char	**splitted;
@@ -50,67 +61,76 @@ void	check_input(char *path, t_map **map)
 			break ;
 		splitted = ft_split(line, ' ');
 		while (splitted[i] && splitted[i][0] != '\n')
-		{	
-			//ft_printf("string: %s i: %i\n",splitted[i],i);
-			//sleep(1);
 			i++;
-		}
-		//ft_printf("tu??");
-		i--;
 		if (width != -1)
 		{
 			if (width != i)
+			{
+				ft_printf("Incorrect map\n");
 				exit (EXIT_FAILURE);
+			}
 		}
 		else
 			width = i;
-		i++;
-		while (i >= 0)
-		{
-			free(splitted[i]);
-			i--;
-		}
-		height++;
-		free(splitted);
+		free_splitted(splitted);
 		free(line);
+		height++;
 		i = 0;
 	}
+	close(fd);
 	(*map)->height = height;
 	(*map)->width = width;
+	allocate_matrix(map);
 }
+
 
 int32_t	main(int argc, char **argv)
 {
 	t_map	*map;
-	//t_coordinate	**array;
-	//t_coordinate	*coord;
-
-	//coord = malloc(sizeof(t_coordinate));
-	//array = malloc(sizeof(1));
-	//if (!array)
-	//	exit(EXIT_FAILURE);
-	//coord->x = 5000;
-	//coord->y = 60;
-	//array[0] = malloc(sizeof(1));
-	//array[0][0] = *coord;
-	//printf("%i",(&array[0][0])->y);
+	t_coordinate	*point;
+	t_coordinate	*point3;
+	t_coordinate	*point1;
+	t_coordinate	*point11;
+	point = malloc(sizeof(t_coordinate));
+	point3 = malloc(sizeof(t_coordinate));
+	point1 = malloc(sizeof(t_coordinate));
+	point11 = malloc(sizeof(t_coordinate));
 	//mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
+	//mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	//if (!mlx)
 	//	exit(EXIT_FAILURE);
-	allocate_map(&map);
-	check_input(argv[1], &map);
-	ft_printf("height: %i\nwidth: %i", map->height, map->width);
-	//get_dimentions(argv[1], &map);
-	//read_map(argv[1], &map);
-	//mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	//if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 	//	exit(EXIT_FAILURE);
-	//mlx_put_pixel(img, 10, 10, 0xf63d9dcc);
-	//mlx_put_pixel(img, 11, 11, 0xf63d9dcc);
-	//mlx_put_pixel(img, 12, 12, 0xf63d9dcc);
-	//mlx_put_pixel(img, 301, 301, 1140810969);
-	//mlx_put_pixel(img, 302, 302, 1140810969);
-	//mlx_put_pixel(img, 303, 303, 1140810969);
+	allocate_map(&map);
+	get_size(argv[1], &map);
+	ft_printf("h: %i w: %i", map->height, map->width);
+	//map->matrix[2][100] = *point;
+	read_map(argv[1], &map);
+	
+	printf("color: %lu", map->matrix[5][3].color);
+
+	
+	
+	//point->x =1;
+	//point3->x =1;
+	//point1->x =150;
+	//point->y =1;
+	//point->z =1;
+
+
+
+	//ft_printf("haha");
+	//map->matrix = malloc(sizeof(t_coordinate*));
+	//map->matrix[0] = malloc(1);
+	//map->matrix[1] = malloc(1);
+
+	//map->matrix[1][1000] = *point1;
+	//map->matrix[1][1001] = *point3;
+	//ft_printf("%i", map->matrix[1][1000].x);
+	//ft_printf("%i", map->matrix[1][0].x);
+
+	//ft_printf("x:%i y:%i z:%i\n",map->matrix[1][1].x, map->matrix[1][1].y, map->matrix[1][1].z);
+	//BresenhamLine(200, 200, 800, 800, img);
 	//mlx_key_hook(mlx, &my_keyhook, &map);
 	//mlx_loop(mlx);
 	//mlx_terminate(mlx);

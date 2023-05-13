@@ -1,5 +1,5 @@
 MAIN = main.c
-TOOLS = read_map.c
+TOOLS = read_map.c algorithm.c
 
 OMAIN = $(MAIN:.c=.o)
 OTOOLS = $(TOOLS:.c=.o)

@@ -75,5 +75,6 @@ int		ft_printf(const char *s, ...);
 long	ft_atoi_long(char *str);
 char	*get_next_line(int fd);
 int		better_strlen(char *str);
+void	free_splitted(char **str);
 
 #endif
