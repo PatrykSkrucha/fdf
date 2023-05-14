@@ -32,14 +32,14 @@ void	read_coord(t_map **map, int z, int y, int x, long color)
 	t_coordinate	*point;
 	
 	point = malloc(sizeof(t_coordinate));
-	point->x = x * 42 + 200;
-	point->y = y * 42 + 200;
+	point->x = x * 42 + 500;
+	point->y = y * 42 + 500;
 	point->z = z;
 	point->color = color;
 	//ft_printf("liczba: %i\n", z);
-	//ft_printf("?? y:%i x: %i\n", y, x);
+	//ft_printf("?? x:%i y: %i\n", x, y);
 	//ft_printf("here?????");
-	(*map)->matrix[x][y] = *point;
+	(*map)->matrix[y][x] = *point;
 }
 
 void	fill_map(t_map **map, char **splitted, int y)
@@ -49,22 +49,28 @@ void	fill_map(t_map **map, char **splitted, int y)
 	char	*color;
 	char	**divided;
 	x = 0;
+	
 	while (splitted[x] && splitted[x][0] != '\n')
 	{
+		//printf("i tu");
 		if(ft_strchr(splitted[x], '\n'))
 		{
+			//printf("haha\n\n");
 			trimmed = ft_strtrim(splitted[x], "\n");
-			//ft_printf("jest!\n");
+			//ft_printf("jest! str: >>%s<<\n", trimmed);
 			read_coord(map, ft_atoi(trimmed), y, x, 0);
 		}
 		else if (!ft_strchr(splitted[x], ','))
 		{
+			//printf("u??");
 			//ft_printf("line: >>%s<<\n", splitted[x]);
 			read_coord(map, ft_atoi(splitted[x]), y, x, 0);
+			//printf("koniec uu\n");
 		}
 		else 
 		{
-			printf("x: %i y: %i\n\n",x,y);
+			//printf("e?????");
+			//printf("x: %i y: %i\n\n",x,y);
 			divided = ft_split(splitted[x], ',');
 			read_coord(map, ft_atoi(divided[0]), y, x, hex_to_l(divided[1]));
 			free_splitted(divided);

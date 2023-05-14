@@ -5,6 +5,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 #include <stdio.h>
+#include <math.h>
 # ifdef __APPLE__				
 #  define WIDTH 2400			// horizonal pixels on Mac
 #  define HEIGHT 1350			// vertical pixels on Mac
@@ -17,6 +18,7 @@ typedef struct isometric
 {
 	int		x;
 	int		y;
+	long	color;
 } t_isometric;
 
 typedef struct coordinate
