@@ -8,7 +8,11 @@ FDF = fdf
 
 HEADERS = -I ./include -I ./MLX42/include -I ./libft/libft.h
 LIBFT = libft/libft.a
-MLX42 = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+ifeq ($(shell uname -s),Darwin)			# Mac
+	MLX42 = MLX42/build/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit -lglfw3
+else ifeq ($(shell uname -s),Linux)		# Linux
+	MLX42 = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+endif
 
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f

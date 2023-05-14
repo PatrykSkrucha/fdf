@@ -90,7 +90,7 @@ void print_matrix(t_map *map)
 
 	i = 0;
 	while (i < map->height)
-	{	
+	{
 		j = 0;
 		while (j < map->width)
 		{
@@ -123,10 +123,10 @@ int32_t	main(int argc, char **argv)
 	//ft_printf("h: %i w: %i", map->height, map->width);
 	//map->matrix[2][100] = *point;
 	read_map(argv[1], &map);
-	
+
 	//printf("color: %lu", map->matrix[5][3].color);
 
-	
+
 	//print_matrix(map);
 	//point->x =1;
 	//point3->x =1;
@@ -148,31 +148,40 @@ int32_t	main(int argc, char **argv)
 
 	//ft_printf("x:%i y:%i z:%i\n",map->matrix[1][1].x, map->matrix[1][1].y, map->matrix[1][1].z);
 	//BresenhamLine(200, 200, 800, 800, img);
+	
 	int i, j;
 	i = 0;
-			ft_printf("haha\n\n");
+			//ft_printf("haha\n\n");
 	while (i < map->height)
 	{
 		j = 0;
-		if (i == map->height - 1)
-		{
 
-			BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j+1].x, map->matrix[i][j+1].y, img);
-		}
-		else
-		{
+		ft_printf("%i\n",i);
 			while (j < map->width)
 			{
-				if (j == map->width - 1)
-					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i+1][j].x, map->matrix[i+1][j].y, img);
-				else
+				if (i == map->height - 1 && j < map->width - 1)
 				{
+					ft_printf("pierw\n");
 					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j+1].x, map->matrix[i][j+1].y, img);
+					ft_printf("pierw1\n");
+				}
+				else if (j == map->width - 1 && ft_printf("drukuje") && i < map->height - 1)
+				{
+					ft_printf("??2\n");
 					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i+1][j].x, map->matrix[i+1][j].y, img);
+					ft_printf("??22\n");
+				}
+				else if (i != map->height -1 && j != map->width -1)
+				{
+					ft_printf("here1\n");
+					ft_printf("here2\n");
+					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j+1].x, map->matrix[i][j+1].y, img);
+					ft_printf("nie1\n");
+					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i+1][j].x, map->matrix[i+1][j].y, img);
+					ft_printf("nie2\n");
 				}
 				j++;
 			}
-		}
 		i++;
 	}
 	mlx_key_hook(mlx, &my_keyhook, &map);
