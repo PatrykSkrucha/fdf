@@ -14,7 +14,7 @@ else ifeq ($(shell uname -s),Linux)		# Linux
 	MLX42 = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 endif
 
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 RESET = \033[0m

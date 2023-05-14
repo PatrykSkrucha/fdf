@@ -32,11 +32,12 @@ void	read_coord(t_map **map, int z, int y, int x, long color)
 	t_coordinate	*point;
 	
 	point = malloc(sizeof(t_coordinate));
-	point->x = x * 42 + 500;
-	point->y = y * 42 + 500;
+	point->x = x * 24 + 200;
+	point->y = y * 24 + 200;
 	point->z = z;
 	point->color = color;
-	//ft_printf("liczba: %i\n", z);
+	//ft_printf("x: %i y: %i z: %i\n",point->x ,point->y, point->z);
+	//sleep(2);
 	//ft_printf("?? x:%i y: %i\n", x, y);
 	//ft_printf("here?????");
 	(*map)->matrix[y][x] = *point;
@@ -59,6 +60,7 @@ void	fill_map(t_map **map, char **splitted, int y)
 			trimmed = ft_strtrim(splitted[x], "\n");
 			//ft_printf("jest! str: >>%s<<\n", trimmed);
 			read_coord(map, ft_atoi(trimmed), y, x, 0);
+			free(trimmed);
 		}
 		else if (!ft_strchr(splitted[x], ','))
 		{

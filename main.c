@@ -17,6 +17,8 @@ void	allocate_map(t_map **map)
 	(*map)->projection = NULL;
 	(*map)->window= mlx_init(WIDTH, HEIGHT, "fdf", true);
 	(*map)->image = mlx_new_image((*map)->window, WIDTH, HEIGHT);
+	if (!(*map)->image || (mlx_image_to_window((*map)->window, (*map)->image, 0, 0) < 0))
+		exit(EXIT_FAILURE);
 }
 
 void	allocate_matrix(t_map **map)
@@ -25,17 +27,32 @@ void	allocate_matrix(t_map **map)
 
 	i = 0;
 	//ft_printf("h: %i w: %i", (*map)->height, (*map)->width);
-	(*map)->matrix = malloc(sizeof(t_coordinate*) * (*map)->height);
-	(*map)->projection = malloc(sizeof(t_isometric*) * (*map)->height);
+	//(*map)->matrix = malloc(sizeof(t_coordinate*) * (*map)->height);
+	(*map)->matrix = ft_calloc((*map)->height, sizeof(t_coordinate*));
+	(*map)->projection = ft_calloc((*map)->height, sizeof(t_coordinate*));
+	if (!(*map)->projection || !(*map)->matrix)
+		exit(EXIT_FAILURE);
+	//(*map)->projection = malloc(sizeof(t_isometric*) * (*map)->height);
 	while (i < (*map)->height)
 	{
-		(*map)->matrix[i] = malloc(sizeof(t_coordinate));
+		(*map)->matrix[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
+		if (!(*map)->matrix[i])
+		{
+			ft_printf("memory allocation problem");
+			exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 	i = 0;
 	while (i < (*map)->height)
 	{
-		(*map)->projection[i] = malloc(sizeof(t_isometric));
+		(*map)->projection[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
+		if (!(*map)->projection[i])
+		{
+			ft_printf("memory allocation problem");
+			exit(EXIT_FAILURE);
+		}
+		//(*map)->projection[i] = malloc(sizeof(t_isometric));
 		i++;
 	}
 
@@ -60,6 +77,8 @@ void	get_size(char *path, t_map **map)
 		if (!line)
 			break ;
 		splitted = ft_split(line, ' ');
+		if (!splitted)
+			exit(EXIT_FAILURE);
 		while (splitted[i] && splitted[i][0] != '\n')
 			i++;
 		if (width != -1)
@@ -115,7 +134,6 @@ void	draw(t_map *map)
 			{
 				if (i == map->height - 1 && j < map->width - 1)
 				{
-				//ft_printf("kirwwww %i %i\n\n",i,j);
 
 					BresenhamLine(map->projection[i][j].x, map->projection[i][j].y, map->projection[i][j+1].x, map->projection[i][j+1].y, map->image);
 				}
@@ -124,6 +142,7 @@ void	draw(t_map *map)
 				else if (i != map->height -1 && j != map->width -1)
 				{
 					BresenhamLine(map->projection[i][j].x, map->projection[i][j].y, map->projection[i][j+1].x, map->projection[i][j+1].y, map->image);
+				//ft_printf("kirwwww %i %i\n\n",i,j);
 					BresenhamLine(map->projection[i][j].x, map->projection[i][j].y, map->projection[i+1][j].x, map->projection[i+1][j].y, map->image);
 				}
 				j++;
@@ -138,7 +157,7 @@ void	isometric(t_map **map)
 	int	j;
 	double theta;
 
-	theta = 30 * M_PI / 180;
+	theta = 30 * 3.14 / 180 ;
 	i = 0;
 	while (i < (*map)->height)
 	{
@@ -172,15 +191,13 @@ int32_t	main(int argc, char **argv)
 	//if (!mlx)
 	//	exit(EXIT_FAILURE);
 	allocate_map(&map);
-	if (!map->image || (mlx_image_to_window(map->window, map->image, 0, 0) < 0))
-		exit(EXIT_FAILURE);
 	get_size(argv[1], &map);
 	//ft_printf("h: %i w: %i", map->height, map->width);
 	//map->matrix[2][100] = *point;
 	read_map(argv[1], &map);
 
 
-	print_matrix(map);
+	//print_matrix(map);
 	//point->x =1;
 	//point3->x =1;
 	//point1->x =150;
@@ -199,11 +216,11 @@ int32_t	main(int argc, char **argv)
 	//ft_printf("%i", map->matrix[1][1000].x);
 	//ft_printf("%i", map->matrix[1][0].x);
 
-	//BresenhamLine(200, 200, 800, 800, img);
-	//printf("hah1111\n\n");
+	//BresenhamLine(200, 200, 800, 800, map->image);
 	isometric(&map);
-	//print_matrix(map);
-	//printf("tu????\n\n");
+	////print_matrix(map);
+	////printf("tu????\n\n");
+	
 	draw(map);
 	mlx_key_hook(map->window, &my_keyhook, &map);
 	mlx_loop(map->window);
