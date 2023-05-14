@@ -32,8 +32,8 @@ void	read_coord(t_map **map, int z, int y, int x, long color)
 	t_coordinate	*point;
 	
 	point = malloc(sizeof(t_coordinate));
-	point->x = x;
-	point->y = y;
+	point->x = x * 42 + 200;
+	point->y = y * 42 + 200;
 	point->z = z;
 	point->color = color;
 	//ft_printf("liczba: %i\n", z);

@@ -3,6 +3,8 @@
 void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_image_t* img)
  {
      // zmienne pomocnicze
+	 long color = 4278190297;
+	 long ratio = 0;
      int d, dx, dy, ai, bi, xi, yi;
      int x = x1, y = y1;
      // ustalenie kierunku rysowania
@@ -28,16 +30,18 @@ void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_i
          dy = y1 - y2;
      }
      // pierwszy piksel
-     mlx_put_pixel(img, x, y, 0xff0000d9);
+     mlx_put_pixel(img, x, y, color);
      // oś wiodąca OX
      if (dx > dy)
      {
+		ratio = color / (dx * 10);
          ai = (dy - dx) * 2;
          bi = dy * 2;
          d = bi - dx;
          // pętla po kolejnych x
          while (x != x2)
          {
+			color -= ratio;
              // test współczynnika
              if (d >= 0)
              {
@@ -50,18 +54,20 @@ void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_i
                  d += bi;
                  x += xi;
              }
-			 mlx_put_pixel(img, x, y, 0xff0000d9);
+			 mlx_put_pixel(img, x, y, color);
          }
      }
      // oś wiodąca OY
      else
      {
+		ratio = color / (dy * 10);
          ai = ( dx - dy ) * 2;
          bi = dx * 2;
          d = bi - dy;
          // pętla po kolejnych y
          while (y != y2)
          {
+			color -= ratio;
              // test współczynnika
              if (d >= 0)
              {
@@ -74,7 +80,7 @@ void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_i
                  d += bi;
                  y += yi;
              }
-             mlx_put_pixel(img, x, y, 0xff0000d9);
+             mlx_put_pixel(img, x, y, color);
          }
      }
  }

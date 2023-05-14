@@ -83,34 +83,51 @@ void	get_size(char *path, t_map **map)
 	allocate_matrix(map);
 }
 
+void print_matrix(t_map *map)
+{
+	int i;
+	int j;
 
+	i = 0;
+	while (i < map->height)
+	{	
+		j = 0;
+		while (j < map->width)
+		{
+			ft_printf("%i ", map->matrix[i][j].z);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+}
 int32_t	main(int argc, char **argv)
 {
 	t_map	*map;
-	t_coordinate	*point;
-	t_coordinate	*point3;
-	t_coordinate	*point1;
-	t_coordinate	*point11;
-	point = malloc(sizeof(t_coordinate));
-	point3 = malloc(sizeof(t_coordinate));
-	point1 = malloc(sizeof(t_coordinate));
-	point11 = malloc(sizeof(t_coordinate));
-	//mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
-	//mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	//if (!mlx)
-	//	exit(EXIT_FAILURE);
-	//if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-	//	exit(EXIT_FAILURE);
+	//t_coordinate	*point;
+	//t_coordinate	*point3;
+	//t_coordinate	*point1;
+	//t_coordinate	*point11;
+	//point = malloc(sizeof(t_coordinate));
+	//point3 = malloc(sizeof(t_coordinate));
+	//point1 = malloc(sizeof(t_coordinate));
+	//point11 = malloc(sizeof(t_coordinate));
+	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
+	mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+		exit(EXIT_FAILURE);
 	allocate_map(&map);
 	get_size(argv[1], &map);
-	ft_printf("h: %i w: %i", map->height, map->width);
+	//ft_printf("h: %i w: %i", map->height, map->width);
 	//map->matrix[2][100] = *point;
 	read_map(argv[1], &map);
 	
-	printf("color: %lu", map->matrix[5][3].color);
+	//printf("color: %lu", map->matrix[5][3].color);
 
 	
-	
+	//print_matrix(map);
 	//point->x =1;
 	//point3->x =1;
 	//point1->x =150;
@@ -131,8 +148,35 @@ int32_t	main(int argc, char **argv)
 
 	//ft_printf("x:%i y:%i z:%i\n",map->matrix[1][1].x, map->matrix[1][1].y, map->matrix[1][1].z);
 	//BresenhamLine(200, 200, 800, 800, img);
-	//mlx_key_hook(mlx, &my_keyhook, &map);
-	//mlx_loop(mlx);
-	//mlx_terminate(mlx);
+	int i, j;
+	i = 0;
+			ft_printf("haha\n\n");
+	while (i < map->height)
+	{
+		j = 0;
+		if (i == map->height - 1)
+		{
+
+			BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j+1].x, map->matrix[i][j+1].y, img);
+		}
+		else
+		{
+			while (j < map->width)
+			{
+				if (j == map->width - 1)
+					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i+1][j].x, map->matrix[i+1][j].y, img);
+				else
+				{
+					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j+1].x, map->matrix[i][j+1].y, img);
+					BresenhamLine(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i+1][j].x, map->matrix[i+1][j].y, img);
+				}
+				j++;
+			}
+		}
+		i++;
+	}
+	mlx_key_hook(mlx, &my_keyhook, &map);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
