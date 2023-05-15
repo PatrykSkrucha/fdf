@@ -1,5 +1,5 @@
 MAIN = main.c
-TOOLS = read_map.c algorithm.c
+TOOLS = read_map.c algorithm.c utils.c
 
 OMAIN = $(MAIN:.c=.o)
 OTOOLS = $(TOOLS:.c=.o)
@@ -14,7 +14,7 @@ else ifeq ($(shell uname -s),Linux)		# Linux
 	MLX42 = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 endif
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -f
 
 RESET = \033[0m
@@ -36,6 +36,7 @@ $(LIBFT):
 	make -C libft
 
 $(MLX42):
+	cmake MLX42 -B MLX42/build
 	make -C MLX42/build
 
 clean:
@@ -44,8 +45,8 @@ clean:
 
 fclean: clean
 	$(RM) $(FDF)
+	$(RM) MLX42/build
 	make fclean -C libft
-	make clean -C MLX42/build
 	@printf "\n$(RED)Cleaned up everything$(RESET)\n\n"
 
 re: fclean all

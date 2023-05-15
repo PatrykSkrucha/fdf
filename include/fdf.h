@@ -40,6 +40,10 @@ typedef struct map
 } t_map;
 
 void	read_map(char *path, t_map **map);
-void BresenhamLine(const int x1, const int y1, const int x2, const int y2, mlx_image_t* img);
+void	allocate_map(t_map **map);
+void	allocate_matrix(t_map **map);
+void	get_size(char *path, t_map **map);
+
+void BresenhamLine(t_isometric x1, t_isometric x2, mlx_image_t* img);
 
 #endif

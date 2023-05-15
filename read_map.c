@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
+/*   Updated: 2023/05/16 01:07:09 by pskrucha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/fdf.h"
 
 long hex_to_l(char *s)
@@ -32,8 +44,22 @@ void	read_coord(t_map **map, int z, int y, int x, long color)
 	t_coordinate	*point;
 	
 	point = malloc(sizeof(t_coordinate));
-	point->x = x * 24 + 200;
-	point->y = y * 24 + 200;
+	if ((*map)->height > 100 || (*map)->width > 100)
+	{
+		point->x = x * 3 + 500;
+		point->y = y * 3 + 400;
+	}
+	else if ((*map)->height > 50 || (*map)->width > 50)
+	{	
+		//ft_printf("here\n\n");
+		point->x = x * 10 + 300;
+		point->y = y * 10 + 400;
+	}
+	else
+	{
+		point->x = x * 50 + 400;
+		point->y = y * 50 + 500;	
+	}
 	point->z = z;
 	point->color = color;
 	//ft_printf("x: %i y: %i z: %i\n",point->x ,point->y, point->z);
