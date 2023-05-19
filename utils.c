@@ -6,11 +6,26 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/16 00:33:28 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:03:56 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
+
+void	get_ratio(t_map **map)
+{
+	int ratiox;
+	int ratioy;
+
+	ratiox = (WIDTH * 0.8) / (*map)->width;
+	ratioy = (HEIGHT * 0.8) / (*map)->height;
+	if (ratiox < ratioy)
+		(*map)->ratio = ratiox;
+	else
+		(*map)->ratio = ratioy;
+}
+
+
 
 void	allocate_map(t_map **map)
 {
@@ -19,6 +34,9 @@ void	allocate_map(t_map **map)
 		exit(EXIT_FAILURE);
 	(*map)->width = 0;
 	(*map)->height = 0;
+	(*map)->ratio = 0;
+	(*map)->shiftx = 0;
+	(*map)->shifty = 0;
 	(*map)->matrix = NULL;
 	(*map)->projection = NULL;
 	(*map)->window = mlx_init(WIDTH, HEIGHT, "fdf", true);
@@ -96,5 +114,8 @@ void	get_size(char *path, t_map **map)
 	(*map)->height = height;
 	(*map)->width = width;
 	ft_printf("height: %i width: %i\n",(*map)->height,(*map)->width);
+	get_ratio(map);
+	(*map)->shiftx = (WIDTH - (width * (*map)->ratio)) / 2;
+	(*map)->shifty = (HEIGHT - (height * (*map)->ratio)) / 2;
 	allocate_matrix(map);
 }

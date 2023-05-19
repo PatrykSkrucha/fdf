@@ -33,6 +33,9 @@ typedef struct map
 {
 	int				width;
 	int				height;
+	int				ratio;
+	int				shifty;
+	int				shiftx;
 	t_coordinate	**matrix;
 	t_isometric		**projection;
 	mlx_t			*window;
@@ -43,7 +46,7 @@ void	read_map(char *path, t_map **map);
 void	allocate_map(t_map **map);
 void	allocate_matrix(t_map **map);
 void	get_size(char *path, t_map **map);
-
-void BresenhamLine(t_isometric x1, t_isometric x2, mlx_image_t* img);
+void	get_ratio(t_map **map);
+void BresenhamLine(t_coordinate x1, t_coordinate x2, mlx_image_t* img);
 
 #endif

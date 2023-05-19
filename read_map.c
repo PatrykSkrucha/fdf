@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/16 01:07:09 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:00:57 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,11 @@ long hex_to_l(char *s)
 void	read_coord(t_map **map, int z, int y, int x, long color)
 {
 	t_coordinate	*point;
+	int	ratio;
 	
 	point = malloc(sizeof(t_coordinate));
-	if ((*map)->height > 100 || (*map)->width > 100)
-	{
-		point->x = x * 3 + 500;
-		point->y = y * 3 + 400;
-	}
-	else if ((*map)->height > 50 || (*map)->width > 50)
-	{	
-		//ft_printf("here\n\n");
-		point->x = x * 10 + 300;
-		point->y = y * 10 + 400;
-	}
-	else
-	{
-		point->x = x * 50 + 400;
-		point->y = y * 50 + 500;	
-	}
+	point->x = x * (*map)->ratio + (*map)->shiftx;
+	point->y = y * (*map)->ratio + (*map)->shifty;
 	point->z = z;
 	point->color = color;
 	//ft_printf("x: %i y: %i z: %i\n",point->x ,point->y, point->z);
@@ -80,12 +67,20 @@ void	fill_map(t_map **map, char **splitted, int y)
 	while (splitted[x] && splitted[x][0] != '\n')
 	{
 		//printf("i tu");
-		if(ft_strchr(splitted[x], '\n'))
+		if(ft_strchr(splitted[x], '\n') && !ft_strchr(splitted[x], ','))
 		{
 			//printf("haha\n\n");
 			trimmed = ft_strtrim(splitted[x], "\n");
 			//ft_printf("jest! str: >>%s<<\n", trimmed);
 			read_coord(map, ft_atoi(trimmed), y, x, 0);
+			free(trimmed);
+		}
+		else if (ft_strchr(splitted[x], '\n') && ft_strchr(splitted[x], ','))
+		{
+			divided = ft_split(splitted[x], ',');
+			trimmed = ft_strtrim(divided[1], "\n");
+			read_coord(map, ft_atoi(divided[0]), y, x, hex_to_l(trimmed));
+			free_splitted(divided);
 			free(trimmed);
 		}
 		else if (!ft_strchr(splitted[x], ','))
@@ -97,8 +92,6 @@ void	fill_map(t_map **map, char **splitted, int y)
 		}
 		else 
 		{
-			//printf("e?????");
-			//printf("x: %i y: %i\n\n",x,y);
 			divided = ft_split(splitted[x], ',');
 			read_coord(map, ft_atoi(divided[0]), y, x, hex_to_l(divided[1]));
 			free_splitted(divided);

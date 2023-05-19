@@ -31,11 +31,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Users/pskrucha/.brew/Cellar/cmake/3.26.3/share/cmake/Modules/Platform/Darwin-Initialize.cmake"
   "/Users/pskrucha/.brew/Cellar/cmake/3.26.3/share/cmake/Modules/Platform/Darwin.cmake"
   "/Users/pskrucha/.brew/Cellar/cmake/3.26.3/share/cmake/Modules/Platform/UnixPaths.cmake"
-  "/Users/pskrucha/Desktop/kirw/MLX42/CMakeLists.txt"
+  "/Users/pskrucha/Desktop/fdf/MLX42/CMakeLists.txt"
   "CMakeFiles/3.26.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeSystem.cmake"
-  "/Users/pskrucha/Desktop/kirw/MLX42/cmake/Findglfw3.cmake"
+  "/Users/pskrucha/Desktop/fdf/MLX42/cmake/Findglfw3.cmake"
   )
 
 # The corresponding makefile is:
