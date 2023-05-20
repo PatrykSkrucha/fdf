@@ -6,53 +6,13 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 02:38:51 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 04:05:00 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 #include <stdio.h>
 
-void move_hook(mlx_key_data_t keydata, void *map)
-{
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		shift_up(map);
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		shift_left(map);
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		shift_down((t_map *)map);
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		shift_right(map);
-		
-}
-void exit_hook(mlx_key_data_t keydata, void *map)
-{
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		exit(EXIT_SUCCESS); //free map etc
-	else
-		move_hook(keydata, map);
-}
-
-
-
-void print_matrix(t_map *map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			ft_printf("%i ", map->matrix[i][j].z);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
 
 void	draw(t_map *map)
 {
@@ -104,93 +64,9 @@ void	isometric(t_map **map)
 		}
 		i++;
 	}
-	printf("%i %i ", i ,j);
+	//printf("%i %i ", i ,j);
 }
 
-int shift_mapx(t_map **map)
-{
-	int min;
-	int i;
-	int j;
-
-	i = 0;
-	min = 0;
-	while (i < (*map)->height)
-	{
-		j = 0;
-		while (j < (*map)->width)
-		{
-			if ((*map)->projection[i][j].x < min)
-				min = (*map)->projection[i][j].x;
-			j++;
-		}
-		i++;
-	}
-	return (min);
-}
-int shift_mapy(t_map **map)
-{
-	int min;
-	int i;
-	int j;
-
-	i = 0;
-	min = 0;
-	while (i < (*map)->height)
-	{
-		j = 0;
-		while (j < (*map)->width)
-		{
-			if ((*map)->projection[i][j].y < min)
-				min = (*map)->projection[i][j].y;
-			j++;
-		}
-		i++;
-	}
-	return (min);
-}
-
-void shift_map(t_map **map, int shifty, int shiftx)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < (*map)->height)
-	{
-		j = 0;
-		while (j < (*map)->width)
-		{
-			(*map)->projection[i][j].x -= shiftx;
-			(*map)->projection[i][j].y -= shifty;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	center_map(t_map **map)
-{
-	int	centerx = (WIDTH - (*map)->projection[0][(*map)->width - 1].x) / 2;
-	int centery = (HEIGHT - (*map)->projection[(*map)->height - 1][(*map)->width - 1].y) / 2;
-	int i;
-	int j;
-
-	i = 0;
-	while (i < (*map)->height)
-	{
-		j = 0;
-		while (j < (*map)->width)
-		{
-			(*map)->projection[i][j].x += centerx;
-			(*map)->projection[i][j].y += centery;
-			j++;
-		}
-		i++;
-	}
-	//ft_printf("x: %i y: %i\n", centerx, centery);
-	
-}
 
 int32_t	main(int argc, char **argv)
 {
@@ -210,6 +86,7 @@ int32_t	main(int argc, char **argv)
 	center_map(&map);
 	draw(map);
 	mlx_key_hook(map->window, &exit_hook, map);
+	mlx_scroll_hook(map->window, &zoom_hook, map);
 	//mlx_key_hook(map->window, &move_hook, &map);
 	mlx_loop(map->window);
 	mlx_terminate(map->window);

@@ -54,5 +54,13 @@ void shift_down(t_map *map);
 void shift_up(t_map *map);
 void shift_right(t_map *map);
 void shift_left(t_map *map);
+int shift_mapx(t_map **map);
+int shift_mapy(t_map **map);
+void shift_map(t_map **map, int shifty, int shiftx);
+void	center_map(t_map **map);
+void	zoom_in(t_map *map);
+void zoom_out(t_map *map);
+void zoom_hook(double xdelta, double ydelta, void* map);
+void exit_hook(mlx_key_data_t keydata, void *map);
 
 #endif

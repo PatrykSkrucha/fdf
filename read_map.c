@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 00:20:00 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 03:55:46 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	read_map(char *path, t_map **map)
 	
 	y = 0;
 	fd = open(path, O_RDONLY);
+	if (read(fd, 0, 0) < 0 || fd < 0)
+		exit (EXIT_FAILURE);
 	while (1)
 	{
 		line = get_next_line(fd);

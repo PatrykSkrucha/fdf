@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 00:28:27 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 04:04:29 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_ratio(t_map **map)
 			ratioy /= 3;
 		(*map)->ratio = ratioy;
 	}
-	ft_printf("ratio: %i", (*map)->ratio);
+	//ft_printf("ratio: %i", (*map)->ratio);
 	//sleep(3);
 }
 
@@ -96,6 +96,11 @@ void	get_size(char *path, t_map **map)
 	width = -1;
 	i = 0;
 	fd = open(path, O_RDONLY);
+	if (read(fd, 0, 0) < 0 || fd < 0)
+	{
+		ft_putstr_fd("Incorrect path to the file\n", 2);
+		exit (EXIT_FAILURE);
+	}
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -124,7 +129,7 @@ void	get_size(char *path, t_map **map)
 	close(fd);
 	(*map)->height = height;
 	(*map)->width = width;
-	ft_printf("height: %i width: %i\n",(*map)->height,(*map)->width);
+	//ft_printf("height: %i width: %i\n",(*map)->height,(*map)->width);
 	get_ratio(map);
 	(*map)->shiftx = (WIDTH - (width * (*map)->ratio)) / 2;
 	(*map)->shifty = (HEIGHT - (height * (*map)->ratio)) / 2;
