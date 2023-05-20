@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:55 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/19 16:45:34 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 01:09:48 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ long	color_picker(int distance, long color, long diff)
 }
 
 
-void BresenhamLine(t_coordinate start, t_coordinate stop, mlx_image_t* img)
+void BresenhamLine(t_isometric start, t_isometric stop, mlx_image_t* img)
  {
-	long color = start.color;
+	long color = stop.color;
 	long ratio = 0;
 	int d, dx, dy, ai, bi, xi, yi;
 	int x = start.x, y = start.y;
@@ -52,7 +52,9 @@ void BresenhamLine(t_coordinate start, t_coordinate stop, mlx_image_t* img)
 		dy = start.y - stop.y;
 	}
 	// pierwszy piksel
+	//ft_printf("nic x: %i y: %i\n", x,y);
 	mlx_put_pixel(img, x, y, color);
+	//ft_printf("here\n");
 	// oś wiodąca OX
 	if (dx > dy)
 	{
@@ -75,7 +77,9 @@ void BresenhamLine(t_coordinate start, t_coordinate stop, mlx_image_t* img)
 				d += bi;
 				x += xi;
 			}
+			//ft_printf("nic x: %i y: %i\n", x,y);
 			mlx_put_pixel(img, x, y, color);
+			//ft_printf("here\n");
 		}
 	}
 	// oś wiodąca OY
@@ -101,7 +105,9 @@ void BresenhamLine(t_coordinate start, t_coordinate stop, mlx_image_t* img)
 				d += bi;
 				y += yi;
 			}
+			//ft_printf("nic x: %i y: %i\n", x,y);
 			mlx_put_pixel(img, x, y, color);
+			//ft_printf("here\n");
 		}
 	}
 }

@@ -6,18 +6,33 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/19 18:07:21 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 02:38:51 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 #include <stdio.h>
 
-void my_keyhook(mlx_key_data_t keydata, void *map)
+void move_hook(mlx_key_data_t keydata, void *map)
+{
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+		shift_up(map);
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		shift_left(map);
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+		shift_down((t_map *)map);
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+		shift_right(map);
+		
+}
+void exit_hook(mlx_key_data_t keydata, void *map)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit(EXIT_SUCCESS); //free map etc
+	else
+		move_hook(keydata, map);
 }
+
 
 
 void print_matrix(t_map *map)
@@ -48,17 +63,20 @@ void	draw(t_map *map)
 	{
 		j = 0;
 
-		ft_printf(" this%i\n",i);
+		
 			while (j < map->width)
 			{
 				if (i == map->height - 1 && j < map->width - 1)
-					BresenhamLine(map->matrix[i][j], map->matrix[i][j+1], map->image);
+					BresenhamLine(map->projection[i][j], map->projection[i][j+1], map->image);
 				else if (j == map->width - 1 && i < map->height - 1)
-					BresenhamLine(map->matrix[i][j], map->matrix[i+1][j], map->image);
+					BresenhamLine(map->projection[i][j], map->projection[i+1][j], map->image);
 				else if (i != map->height -1 && j != map->width -1)
 				{
-					BresenhamLine(map->matrix[i][j], map->matrix[i][j+1], map->image);
-					BresenhamLine(map->matrix[i][j], map->matrix[i+1][j], map->image);
+					//ft_printf("here?\n");
+					//ft_printf(" this x%i y: %i\n",map->projection[i][j].x, map->projection[i][j].y);
+					BresenhamLine(map->projection[i][j], map->projection[i][j+1], map->image);
+					//ft_printf("or not\n");
+					BresenhamLine(map->projection[i][j], map->projection[i+1][j], map->image);
 				}
 				j++;
 			}
@@ -80,7 +98,7 @@ void	isometric(t_map **map)
 		while (j < (*map)->width)
 		{
 			(*map)->projection[i][j].color = (*map)->matrix[i][j].color;
-			(*map)->projection[i][j].x = (((*map)->matrix[i][j].x * cos(theta) - (*map)->matrix[i][j].y * cos(theta))) + 700;
+			(*map)->projection[i][j].x = (((*map)->matrix[i][j].x * cos(theta) - (*map)->matrix[i][j].y * cos(theta)));
 			(*map)->projection[i][j].y = (*map)->matrix[i][j].x * sin(theta) + (*map)->matrix[i][j].y * sin(theta) - (*map)->matrix[i][j].z;
 			j++;
 		}
@@ -89,17 +107,110 @@ void	isometric(t_map **map)
 	printf("%i %i ", i ,j);
 }
 
+int shift_mapx(t_map **map)
+{
+	int min;
+	int i;
+	int j;
+
+	i = 0;
+	min = 0;
+	while (i < (*map)->height)
+	{
+		j = 0;
+		while (j < (*map)->width)
+		{
+			if ((*map)->projection[i][j].x < min)
+				min = (*map)->projection[i][j].x;
+			j++;
+		}
+		i++;
+	}
+	return (min);
+}
+int shift_mapy(t_map **map)
+{
+	int min;
+	int i;
+	int j;
+
+	i = 0;
+	min = 0;
+	while (i < (*map)->height)
+	{
+		j = 0;
+		while (j < (*map)->width)
+		{
+			if ((*map)->projection[i][j].y < min)
+				min = (*map)->projection[i][j].y;
+			j++;
+		}
+		i++;
+	}
+	return (min);
+}
+
+void shift_map(t_map **map, int shifty, int shiftx)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < (*map)->height)
+	{
+		j = 0;
+		while (j < (*map)->width)
+		{
+			(*map)->projection[i][j].x -= shiftx;
+			(*map)->projection[i][j].y -= shifty;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	center_map(t_map **map)
+{
+	int	centerx = (WIDTH - (*map)->projection[0][(*map)->width - 1].x) / 2;
+	int centery = (HEIGHT - (*map)->projection[(*map)->height - 1][(*map)->width - 1].y) / 2;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < (*map)->height)
+	{
+		j = 0;
+		while (j < (*map)->width)
+		{
+			(*map)->projection[i][j].x += centerx;
+			(*map)->projection[i][j].y += centery;
+			j++;
+		}
+		i++;
+	}
+	//ft_printf("x: %i y: %i\n", centerx, centery);
+	
+}
+
 int32_t	main(int argc, char **argv)
 {
 	t_map	*map;
+	int shiftx;
+	int shifty;
+
 	//printf("tu: %li", color_picker(4, 900, 1000 - 800));
 	allocate_map(&map);
 	get_size(argv[1], &map);
 	read_map(argv[1], &map);
 	isometric(&map);
-	//ft_printf("\n\nshift y:%i\nshift x: %i\n", map->shifty, map->shiftx);
+	shiftx = shift_mapx(&map);
+	shifty = shift_mapy(&map);
+	//ft_printf("shift x:%i shift y:%i ", shiftx, shifty);
+	shift_map(&map, shifty, shiftx);
+	center_map(&map);
 	draw(map);
-	mlx_key_hook(map->window, &my_keyhook, &map);
+	mlx_key_hook(map->window, &exit_hook, map);
+	//mlx_key_hook(map->window, &move_hook, &map);
 	mlx_loop(map->window);
 	mlx_terminate(map->window);
 	return (EXIT_SUCCESS);
@@ -129,3 +240,4 @@ int32_t	main(int argc, char **argv)
 
 //    return (EXIT_SUCCESS);
 //}
+

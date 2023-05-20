@@ -47,6 +47,12 @@ void	allocate_map(t_map **map);
 void	allocate_matrix(t_map **map);
 void	get_size(char *path, t_map **map);
 void	get_ratio(t_map **map);
-void BresenhamLine(t_coordinate x1, t_coordinate x2, mlx_image_t* img);
+void BresenhamLine(t_isometric x1, t_isometric x2, mlx_image_t* img);
+void	isometric(t_map **map);
+void	draw(t_map *map);
+void shift_down(t_map *map);
+void shift_up(t_map *map);
+void shift_right(t_map *map);
+void shift_left(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/19 18:03:56 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:28:27 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,23 @@ void	get_ratio(t_map **map)
 	int ratiox;
 	int ratioy;
 
-	ratiox = (WIDTH * 0.8) / (*map)->width;
-	ratioy = (HEIGHT * 0.8) / (*map)->height;
+	ratiox = (WIDTH) / (*map)->width;
+	ratioy = (HEIGHT) / (*map)->height;
+	
 	if (ratiox < ratioy)
+	{
+		if (ratiox > 10)	
+			ratiox /= 3;
 		(*map)->ratio = ratiox;
+	}
 	else
+	{
+		if (ratioy > 10)
+			ratioy /= 3;
 		(*map)->ratio = ratioy;
+	}
+	ft_printf("ratio: %i", (*map)->ratio);
+	//sleep(3);
 }
 
 

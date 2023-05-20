@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/19 18:00:57 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:20:00 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	read_coord(t_map **map, int z, int y, int x, long color)
 	int	ratio;
 	
 	point = malloc(sizeof(t_coordinate));
-	point->x = x * (*map)->ratio + (*map)->shiftx;
-	point->y = y * (*map)->ratio + (*map)->shifty;
+	point->x = x * (*map)->ratio;
+	point->y = y * (*map)->ratio;
 	point->z = z;
 	point->color = color;
 	//ft_printf("x: %i y: %i z: %i\n",point->x ,point->y, point->z);
