@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 04:05:00 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:10:14 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	draw(t_map *map)
 	while (i < map->height)
 	{
 		j = 0;
-
-		
 			while (j < map->width)
 			{
 				if (i == map->height - 1 && j < map->width - 1)
@@ -42,29 +40,6 @@ void	draw(t_map *map)
 			}
 		i++;
 	}
-}
-
-void	isometric(t_map **map)
-{
-	int	i;
-	int	j;
-	double theta;
-
-	theta = 30 * 3.14 / 180 ;
-	i = 0;
-	while (i < (*map)->height)
-	{
-		j = 0;
-		while (j < (*map)->width)
-		{
-			(*map)->projection[i][j].color = (*map)->matrix[i][j].color;
-			(*map)->projection[i][j].x = (((*map)->matrix[i][j].x * cos(theta) - (*map)->matrix[i][j].y * cos(theta)));
-			(*map)->projection[i][j].y = (*map)->matrix[i][j].x * sin(theta) + (*map)->matrix[i][j].y * sin(theta) - (*map)->matrix[i][j].z;
-			j++;
-		}
-		i++;
-	}
-	//printf("%i %i ", i ,j);
 }
 
 
