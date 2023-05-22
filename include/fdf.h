@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 17:10:05 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:29:34 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ typedef struct bresenham
 	int	y;
 }	t_bresenham;
 
-typedef struct isometric
+typedef struct iso
 {
 	int		x;
 	int		y;
 	long	color;
-}	t_isometric;
+}	t_iso;
 
 typedef struct coordinate
 {
@@ -62,7 +62,7 @@ typedef struct map
 	int				shift_y;
 	int				shift_x;
 	t_coordinate	**matrix;
-	t_isometric		**projection;
+	t_iso			**projection;
 	mlx_t			*window;
 	mlx_image_t		*image;
 }	t_map;
@@ -72,7 +72,7 @@ void	allocate_map(t_map **map);
 void	allocate_matrix(t_map **map);
 void	get_size(char *path, t_map **map);
 void	get_ratio(t_map **map);
-void	BresenhamLine(t_isometric x1, t_isometric x2, mlx_image_t *img);
+void	bresenham(t_iso x1, t_iso x2, mlx_image_t *img);
 void	isometric(t_map **map);
 void	draw(t_map *map);
 void	shift_down(t_map *map);

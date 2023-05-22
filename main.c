@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 16:47:11 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:29:41 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ void	draw(t_map *map)
 			while (j < map->width)
 			{
 				if (i == map->height - 1 && j < map->width - 1)
-					BresenhamLine(map->projection[i][j], map->projection[i][j+1], map->image);
+					bresenham(map->projection[i][j], map->projection[i][j+1], map->image);
 				else if (j == map->width - 1 && i < map->height - 1)
-					BresenhamLine(map->projection[i][j], map->projection[i+1][j], map->image);
+					bresenham(map->projection[i][j], map->projection[i+1][j], map->image);
 				else if (i != map->height -1 && j != map->width -1)
 				{
 					ft_printf("here?\n");
 					ft_printf(" this x%i y: %i\n",map->projection[i][j].x, map->projection[i][j].y);
-					BresenhamLine(map->projection[i][j], map->projection[i][j+1], map->image);
+					bresenham(map->projection[i][j], map->projection[i][j+1], map->image);
 					ft_printf("or not\n");
-					BresenhamLine(map->projection[i][j], map->projection[i+1][j], map->image);
+					bresenham(map->projection[i][j], map->projection[i+1][j], map->image);
 				}
 				j++;
 			}

@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:55 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 17:13:15 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:29:31 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,106 +14,97 @@
 
 static t_bresenham	*allocate_container(int x, int y)
 {
-	t_bresenham	*container;
+	t_bresenham	*box;
 
-	container = malloc(sizeof(t_bresenham));
-	if (!container)
+	box = malloc(sizeof(t_bresenham));
+	if (!box)
 		exit(EXIT_FAILURE);
-	container->x = x;
-	container->y = y;
-	container->ai = 0;
-	container->bi = 0;
-	container->length = 0;
-	container->x_length = 0;
-	container->xi = 0;
-	container->y_length = 0;
-	container->yi = 0;
-	return (container);
+	box->x = x;
+	box->y = y;
+	box->ai = 0;
+	box->bi = 0;
+	box->length = 0;
+	box->x_length = 0;
+	box->xi = 0;
+	box->y_length = 0;
+	box->yi = 0;
+	return (box);
 }
 
-static void set_direction(t_isometric start, t_isometric stop, t_bresenham *container)
+static void	set_direction(t_iso start, t_iso stop, t_bresenham *box)
 {
-		if (start.x < stop.x)
+	if (start.x < stop.x)
 	{
-		container->xi = 1;
-		container->x_length = stop.x - start.x;
+		box->xi = 1;
+		box->x_length = stop.x - start.x;
 	}
 	else
 	{
-		container->xi = -1;
-		container->x_length = start.x - stop.x;
+		box->xi = -1;
+		box->x_length = start.x - stop.x;
 	}
 	if (start.y < stop.y)
 	{
-		container->yi = 1;
-		container->y_length = stop.y - start.y;
+		box->yi = 1;
+		box->y_length = stop.y - start.y;
 	}
 	else
 	{
-		container->yi = -1;
-		container->y_length = start.y - stop.y;
+		box->yi = -1;
+		box->y_length = start.y - stop.y;
 	}
 }
 
-#include "include/fdf.h"
-
-void	BresenhamLine(t_isometric start, t_isometric stop, mlx_image_t *img)
+void	pick_x(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
 {
-	t_bresenham	*container;
-	
-	container = allocate_container(start.x, start.y);
-	set_direction(start, stop, container);
-	mlx_put_pixel(img, container->x, container->y, start.color);
-	if (container->x_length > container->y_length)
+	box->ai = (box->y_length - box->x_length) * 2;
+	box->bi = box->y_length * 2;
+	box->length = box->bi - box->x_length;
+	while (box->x != stop.x)
 	{
-		container->ai = (container->y_length - container->x_length) * 2;
-		container->bi = container->y_length * 2;
-		container->length = container->bi - container->x_length;
-		// pętla po kolejnych x
-		while (container->x != stop.x)
+		if (box->length >= 0)
 		{
-			//color = color_picker(container->x_length, color, start.color - stop.color);
-			// test współczynnika
-			if (container->length >= 0)
-			{
-				container->x += container->xi;
-				container->y += container->yi;
-				container->length += container->ai;
-			}
-			else
-			{
-				container->length += container->bi;
-				container->x += container->xi;
-			}
-			//ft_printf("nic container->x: %i container->y: %i\n", container->x,container->y);
-			mlx_put_pixel(img, container->x, container->y, start.color);
-			//ft_printf("here\n");
+			box->x += box->xi;
+			box->y += box->yi;
+			box->length += box->ai;
 		}
-	}
+		else
+		{
+			box->length += box->bi;
+			box->x += box->xi;
+		}
+		mlx_put_pixel(img, box->x, box->y, start.color);
+	}	
+}
+
+void	bresenham(t_iso start, t_iso stop, mlx_image_t *img)
+{
+	t_bresenham	*box;
+
+	box = allocate_container(start.x, start.y);
+	set_direction(start, stop, box);
+	mlx_put_pixel(img, box->x, box->y, start.color);
+	if (box->x_length > box->y_length)
+		pick_x(box, start, stop, img);
 	else
 	{
-		container->ai = ( container->x_length - container->y_length ) * 2;
-		container->bi = container->x_length * 2;
-		container->length = container->bi - container->y_length;
-		// pętla po kolejnych container->y
-		while (container->y != stop.y)
+		box->ai = (box->x_length - box->y_length) * 2;
+		box->bi = box->x_length * 2;
+		box->length = box->bi - box->y_length;
+		while (box->y != stop.y)
 		{
-			//color = color_picker(x_length, color, start.color - stop.color);
-			// test współczynnika
-			if (container->length >= 0)
+			if (box->length >= 0)
 			{
-				container->x += container->xi;
-				container->y += container->yi;
-				container->length += container->ai;
+				box->x += box->xi;
+				box->y += box->yi;
+				box->length += box->ai;
 			}
 			else
 			{
-				container->length += container->bi;
-				container->y += container->yi;
+				box->length += box->bi;
+				box->y += box->yi;
 			}
-			//ft_printf("nic container->x: %i container->y: %i\n", container->x,container->y);
-			mlx_put_pixel(img, container->x, container->y, start.color);
-			//ft_printf("here\n");
+			mlx_put_pixel(img, box->x, box->y, start.color);
 		}
 	}
 }
