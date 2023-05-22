@@ -6,107 +6,113 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:55 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 03:53:57 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:13:15 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 
-long	color_picker(int distance, long color, long diff)
+static t_bresenham	*allocate_container(int x, int y)
 {
-	long new_color;
-	if (distance == 0)
-		return (color);
-	new_color = color - (diff / distance);
-	return (new_color);
+	t_bresenham	*container;
+
+	container = malloc(sizeof(t_bresenham));
+	if (!container)
+		exit(EXIT_FAILURE);
+	container->x = x;
+	container->y = y;
+	container->ai = 0;
+	container->bi = 0;
+	container->length = 0;
+	container->x_length = 0;
+	container->xi = 0;
+	container->y_length = 0;
+	container->yi = 0;
+	return (container);
 }
 
-
-void BresenhamLine(t_isometric start, t_isometric stop, mlx_image_t* img)
- {
-	long color = stop.color;
-	long ratio = 0;
-	int d, dx, dy, ai, bi, xi, yi;
-	int x = start.x, y = start.y;
-
-	// ustalenie kierunku rysowania
-	if (start.x < stop.x)
+static void set_direction(t_isometric start, t_isometric stop, t_bresenham *container)
+{
+		if (start.x < stop.x)
 	{
-		xi = 1;
-		dx = stop.x - start.x;
+		container->xi = 1;
+		container->x_length = stop.x - start.x;
 	}
 	else
 	{
-		xi = -1;
-		dx = start.x - stop.x;
+		container->xi = -1;
+		container->x_length = start.x - stop.x;
 	}
-	// ustalenie kierunku rysowania
 	if (start.y < stop.y)
 	{
-		yi = 1;
-		dy = stop.y - start.y;
+		container->yi = 1;
+		container->y_length = stop.y - start.y;
 	}
 	else
 	{
-		yi = -1;
-		dy = start.y - stop.y;
+		container->yi = -1;
+		container->y_length = start.y - stop.y;
 	}
-	// pierwszy piksel
-	//ft_printf("nic x: %i y: %i\n", x,y);
-	mlx_put_pixel(img, x, y, color);
-	//ft_printf("here\n");
-	// oś wiodąca OX
-	if (dx > dy)
+}
+
+#include "include/fdf.h"
+
+void	BresenhamLine(t_isometric start, t_isometric stop, mlx_image_t *img)
+{
+	t_bresenham	*container;
+	
+	container = allocate_container(start.x, start.y);
+	set_direction(start, stop, container);
+	mlx_put_pixel(img, container->x, container->y, start.color);
+	if (container->x_length > container->y_length)
 	{
-		ai = (dy - dx) * 2;
-		bi = dy * 2;
-		d = bi - dx;
+		container->ai = (container->y_length - container->x_length) * 2;
+		container->bi = container->y_length * 2;
+		container->length = container->bi - container->x_length;
 		// pętla po kolejnych x
-		while (x != stop.x)
+		while (container->x != stop.x)
 		{
-			//color = color_picker(dx, color, start.color - stop.color);
+			//color = color_picker(container->x_length, color, start.color - stop.color);
 			// test współczynnika
-			if (d >= 0)
+			if (container->length >= 0)
 			{
-				x += xi;
-				y += yi;
-				d += ai;
+				container->x += container->xi;
+				container->y += container->yi;
+				container->length += container->ai;
 			}
 			else
 			{
-				d += bi;
-				x += xi;
+				container->length += container->bi;
+				container->x += container->xi;
 			}
-			//ft_printf("nic x: %i y: %i\n", x,y);
-			mlx_put_pixel(img, x, y, color);
+			//ft_printf("nic container->x: %i container->y: %i\n", container->x,container->y);
+			mlx_put_pixel(img, container->x, container->y, start.color);
 			//ft_printf("here\n");
 		}
 	}
-	// oś wiodąca OY
 	else
 	{
-		ratio = color / (dy * 10);
-		ai = ( dx - dy ) * 2;
-		bi = dx * 2;
-		d = bi - dy;
-		// pętla po kolejnych y
-		while (y != stop.y)
+		container->ai = ( container->x_length - container->y_length ) * 2;
+		container->bi = container->x_length * 2;
+		container->length = container->bi - container->y_length;
+		// pętla po kolejnych container->y
+		while (container->y != stop.y)
 		{
-			//color = color_picker(dx, color, start.color - stop.color);
+			//color = color_picker(x_length, color, start.color - stop.color);
 			// test współczynnika
-			if (d >= 0)
+			if (container->length >= 0)
 			{
-				x += xi;
-				y += yi;
-				d += ai;
+				container->x += container->xi;
+				container->y += container->yi;
+				container->length += container->ai;
 			}
 			else
 			{
-				d += bi;
-				y += yi;
+				container->length += container->bi;
+				container->y += container->yi;
 			}
-			//ft_printf("nic x: %i y: %i\n", x,y);
-			mlx_put_pixel(img, x, y, color);
+			//ft_printf("nic container->x: %i container->y: %i\n", container->x,container->y);
+			mlx_put_pixel(img, container->x, container->y, start.color);
 			//ft_printf("here\n");
 		}
 	}

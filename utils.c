@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/20 04:04:29 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:18:05 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	allocate_map(t_map **map)
 	(*map)->width = 0;
 	(*map)->height = 0;
 	(*map)->ratio = 0;
-	(*map)->shiftx = 0;
-	(*map)->shifty = 0;
+	(*map)->shift_x = 0;
+	(*map)->shift_y = 0;
 	(*map)->matrix = NULL;
 	(*map)->projection = NULL;
 	(*map)->window = mlx_init(WIDTH, HEIGHT, "fdf", true);
@@ -131,7 +131,7 @@ void	get_size(char *path, t_map **map)
 	(*map)->width = width;
 	//ft_printf("height: %i width: %i\n",(*map)->height,(*map)->width);
 	get_ratio(map);
-	(*map)->shiftx = (WIDTH - (width * (*map)->ratio)) / 2;
-	(*map)->shifty = (HEIGHT - (height * (*map)->ratio)) / 2;
+	//(*map)->shift_x = (WIDTH - (width * (*map)->ratio)) / 2;
+	//(*map)->shift_y = (HEIGHT - (height * (*map)->ratio)) / 2;
 	allocate_matrix(map);
 }
