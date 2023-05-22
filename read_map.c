@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 20:53:51 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:11:44 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,67 +39,68 @@ long	hex_to_l(char *s)
 	return (res);
 }
 
-void	read_coord(t_map **map, int z, int y, int x, long color)
+void	read_coord(t_map **map, int z, t_coordinate *temp, long color)
 {
 	t_coordinate	*point;
 
 	point = malloc(sizeof(t_coordinate));
-	point->x = x * (*map)->ratio;
-	point->y = y * (*map)->ratio;
+	point->x = temp->x * (*map)->ratio;
+	point->y = temp->y * (*map)->ratio;
 	point->z = z;
 	point->color = color;
-	(*map)->matrix[y][x] = *point;
+	(*map)->matrix[temp->y][temp->x] = *point;
 }
 
-static void	process_input(char **splitted, int x, t_map **map, int y)
+static void	process_input(char **str, t_map **map, t_coordinate *temp)
 {
 	char	*trimmed;
 	char	**divided;
 
-	if (ft_strchr(splitted[x], '\n') && !ft_strchr(splitted[x], ','))
+	if (ft_strchr(str[temp->x], '\n') && !ft_strchr(str[temp->x], ','))
 	{
-		trimmed = ft_strtrim(splitted[x], "\n");
-		read_coord(map, ft_atoi(trimmed), y, x, 0);
+		trimmed = ft_strtrim(str[temp->x], "\n");
+		read_coord(map, ft_atoi(trimmed), temp, 0);
 		free(trimmed);
 	}
-	else if (ft_strchr(splitted[x], '\n') && ft_strchr(splitted[x], ','))
+	else if (ft_strchr(str[temp->x], '\n') && ft_strchr(str[temp->x], ','))
 	{
-		divided = ft_split(splitted[x], ',');
+		divided = ft_split(str[temp->x], ',');
 		trimmed = ft_strtrim(divided[1], "\n");
-		read_coord(map, ft_atoi(divided[0]), y, x, hex_to_l(trimmed));
+		read_coord(map, ft_atoi(divided[0]), temp, hex_to_l(trimmed));
 		free_splitted(divided);
 		free(trimmed);
 	}
-	else if (!ft_strchr(splitted[x], ','))
-		read_coord(map, ft_atoi(splitted[x]), y, x, 0);
+	else if (!ft_strchr(str[temp->x], ','))
+		read_coord(map, ft_atoi(str[temp->x]), temp, 0);
 	else
 	{
-		divided = ft_split(splitted[x], ',');
-		read_coord(map, ft_atoi(divided[0]), y, x, hex_to_l(divided[1]));
+		divided = ft_split(str[temp->x], ',');
+		read_coord(map, ft_atoi(divided[0]), temp, hex_to_l(divided[1]));
 		free_splitted(divided);
 	}
 }
 
-void	fill_map(t_map **map, char **splitted, int y)
+void	fill_map(t_map **map, char **str, t_coordinate *temp)
 {
-	int	x;
-
-	x = 0;
-	while (splitted[x] && splitted[x][0] != '\n')
+	temp->x = 0;
+	while (str[temp->x] && str[temp->x][0] != '\n')
 	{
-		process_input(splitted, x, map, y);
-		x++;
+		process_input(str, map, temp);
+		temp->x++;
 	}
 }
 
 void	read_map(char *path, t_map **map)
 {
-	int		fd;
-	char	*line;
-	char	**splitted;
-	int		y;
+	int				fd;
+	char			*line;
+	char			**str;
+	t_coordinate	*temp;
 
-	y = 0;
+	temp = malloc(sizeof(t_coordinate));
+	if (!temp)
+		exit(EXIT_FAILURE);
+	temp->y = 0;
 	fd = open(path, O_RDONLY);
 	if (read(fd, 0, 0) < 0 || fd < 0)
 		exit (EXIT_FAILURE);
@@ -108,11 +109,11 @@ void	read_map(char *path, t_map **map)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		splitted = ft_split(line, ' ');
-		fill_map(map, splitted, y);
-		free_splitted(splitted);
+		str = ft_split(line, ' ');
+		fill_map(map, str, temp);
+		free_splitted(str);
 		free(line);
-		y++;
+		temp->y++;
 	}
 	close(fd);
 }
