@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:55 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 17:29:31 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:34:17 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	set_direction(t_iso start, t_iso stop, t_bresenham *box)
 	}
 }
 
-void	pick_x(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
+static void	pick_x(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
 {
 	box->ai = (box->y_length - box->x_length) * 2;
 	box->bi = box->y_length * 2;
@@ -77,6 +77,28 @@ void	pick_x(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
 	}	
 }
 
+static void	pick_y(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
+{
+	box->ai = (box->x_length - box->y_length) * 2;
+	box->bi = box->x_length * 2;
+	box->length = box->bi - box->y_length;
+	while (box->y != stop.y)
+	{
+		if (box->length >= 0)
+		{
+			box->x += box->xi;
+			box->y += box->yi;
+			box->length += box->ai;
+		}
+		else
+		{
+			box->length += box->bi;
+			box->y += box->yi;
+		}
+		mlx_put_pixel(img, box->x, box->y, start.color);
+	}
+}
+
 void	bresenham(t_iso start, t_iso stop, mlx_image_t *img)
 {
 	t_bresenham	*box;
@@ -87,24 +109,5 @@ void	bresenham(t_iso start, t_iso stop, mlx_image_t *img)
 	if (box->x_length > box->y_length)
 		pick_x(box, start, stop, img);
 	else
-	{
-		box->ai = (box->x_length - box->y_length) * 2;
-		box->bi = box->x_length * 2;
-		box->length = box->bi - box->y_length;
-		while (box->y != stop.y)
-		{
-			if (box->length >= 0)
-			{
-				box->x += box->xi;
-				box->y += box->yi;
-				box->length += box->ai;
-			}
-			else
-			{
-				box->length += box->bi;
-				box->y += box->yi;
-			}
-			mlx_put_pixel(img, box->x, box->y, start.color);
-		}
-	}
+		pick_y(box, start, stop, img);
 }
