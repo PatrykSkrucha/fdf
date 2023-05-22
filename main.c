@@ -6,12 +6,11 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 20:33:41 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:56:21 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
-#include <stdio.h>
 
 int32_t	main(int argc, char **argv)
 {

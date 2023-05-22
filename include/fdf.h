@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 18:14:45 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:57:17 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <math.h>
 # ifdef __APPLE__				
-#  define WIDTH 2400			// horizonal pixels on Mac
-#  define HEIGHT 1350			// vertical pixels on Mac
+#  define WIDTH 2400
+#  define HEIGHT 1350
 # elif defined(__linux__)	
-#  define WIDTH 1500				// horizonal pixels on Linux
-#  define HEIGHT 850			// vertical pixels on Linux
+#  define WIDTH 1500
+#  define HEIGHT 850
 # endif
 
 typedef struct bresenham
