@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:39 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 14:49:56 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:35:36 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	find_shift_x(t_map **map)
 		j = 0;
 		while (j < (*map)->width)
 		{
-			if ((*map)->projection[i][j].x < shift_x)
-				shift_x = (*map)->projection[i][j].x;
+			if ((*map)->iso[i][j].x < shift_x)
+				shift_x = (*map)->iso[i][j].x;
 			j++;
 		}
 		i++;
@@ -47,8 +47,8 @@ void	find_shift_y(t_map **map)
 		j = 0;
 		while (j < (*map)->width)
 		{
-			if ((*map)->projection[i][j].y < shift_y)
-				shift_y = (*map)->projection[i][j].y;
+			if ((*map)->iso[i][j].y < shift_y)
+				shift_y = (*map)->iso[i][j].y;
 			j++;
 		}
 		i++;
@@ -67,8 +67,8 @@ void	shift__to_the_edge(t_map **map)
 		j = 0;
 		while (j < (*map)->width)
 		{
-			(*map)->projection[i][j].x -= (*map)->shift_x;
-			(*map)->projection[i][j].y -= (*map)->shift_y;
+			(*map)->iso[i][j].x -= (*map)->shift_x;
+			(*map)->iso[i][j].y -= (*map)->shift_y;
 			j++;
 		}
 		i++;
@@ -82,16 +82,17 @@ void	center_map(t_map **map)
 	int	i;
 	int	j;
 
-	center_y = (HEIGHT - (*map)->projection[(*map)->height - 1][(*map)->width - 1].y) / 2;
-	center_x = (WIDTH - (*map)->projection[0][(*map)->width - 1].x) / 2;
+	center_y = (HEIGHT
+			- (*map)->iso[(*map)->height - 1][(*map)->width - 1].y) / 2;
+	center_x = (WIDTH - (*map)->iso[0][(*map)->width - 1].x) / 2;
 	i = 0;
 	while (i < (*map)->height)
 	{
 		j = 0;
 		while (j < (*map)->width)
 		{
-			(*map)->projection[i][j].x += center_x;
-			(*map)->projection[i][j].y += center_y;
+			(*map)->iso[i][j].x += center_x;
+			(*map)->iso[i][j].y += center_y;
 			j++;
 		}
 		i++;

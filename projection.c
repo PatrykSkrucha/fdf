@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection.c                                       :+:      :+:    :+:   */
+/*   iso.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,9 +25,13 @@ void	isometric(t_map **map)
 		j = 0;
 		while (j < (*map)->width)
 		{
-			(*map)->projection[i][j].color = (*map)->matrix[i][j].color;
-			(*map)->projection[i][j].x = (((*map)->matrix[i][j].x * cos(theta) - (*map)->matrix[i][j].y * cos(theta)));
-			(*map)->projection[i][j].y = (*map)->matrix[i][j].x * sin(theta) + (*map)->matrix[i][j].y * sin(theta) - (*map)->matrix[i][j].z;
+			(*map)->iso[i][j].color = (*map)->matrix[i][j].color;
+			(*map)->iso[i][j].x = (((*map)->matrix[i][j].x
+						* cos(theta) - (*map)->matrix[i][j].y
+						* cos(theta)));
+			(*map)->iso[i][j].y = (*map)->matrix[i][j].x
+				* sin(theta) + (*map)->matrix[i][j].y
+				* sin(theta) - (*map)->matrix[i][j].z;
 			j++;
 		}
 		i++;

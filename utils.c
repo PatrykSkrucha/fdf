@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 18:03:15 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:14:43 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	allocate_map(t_map **map)
 	(*map)->shift_x = 0;
 	(*map)->shift_y = 0;
 	(*map)->matrix = NULL;
-	(*map)->projection = NULL;
+	(*map)->iso = NULL;
 	(*map)->window = mlx_init(WIDTH, HEIGHT, "fdf", true);
 	(*map)->image = mlx_new_image((*map)->window, WIDTH, HEIGHT);
 	if (!(*map)->image
@@ -61,8 +61,8 @@ void	allocate_matrix(t_map **map)
 
 	i = 0;
 	(*map)->matrix = ft_calloc((*map)->height, sizeof(t_coordinate *));
-	(*map)->projection = ft_calloc((*map)->height, sizeof(t_coordinate *));
-	if (!(*map)->projection || !(*map)->matrix)
+	(*map)->iso = ft_calloc((*map)->height, sizeof(t_coordinate *));
+	if (!(*map)->iso || !(*map)->matrix)
 		exit(EXIT_FAILURE);
 	while (i < (*map)->height)
 	{
@@ -74,8 +74,8 @@ void	allocate_matrix(t_map **map)
 	i = 0;
 	while (i < (*map)->height)
 	{
-		(*map)->projection[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
-		if (!(*map)->projection[i] && ft_printf("memory allocation problem"))
+		(*map)->iso[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
+		if (!(*map)->iso[i] && ft_printf("memory allocation problem"))
 			exit(EXIT_FAILURE);
 		i++;
 	}

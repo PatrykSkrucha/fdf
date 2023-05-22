@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 17:39:27 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:14:45 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct map
 	int				shift_y;
 	int				shift_x;
 	t_coordinate	**matrix;
-	t_iso			**projection;
+	t_iso			**iso;
 	mlx_t			*window;
 	mlx_image_t		*image;
 }	t_map;
