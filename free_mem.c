@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:28:50 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 16:52:43 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:09:50 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ static void	free_matrix(t_map *map)
 
 void	free_and_exit(t_map *map, int i)
 {
-	free_iso(map);
-	free_matrix(map);
-	free(map);
-	if (map->window)
-		mlx_terminate(map->window);
+	if (map)
+	{
+		free_iso(map);
+		free_matrix(map);
+		free(map);
+		if (map->window)
+			mlx_terminate(map->window);
+	}
 	if (!i)
 		exit(EXIT_SUCCESS);
 	else

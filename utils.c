@@ -6,30 +6,30 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 16:59:56 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:03:08 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 
-void	get_ratio(t_map **map)
+void	get_ratio(t_map *map)
 {
 	int	ratiox;
 	int	ratioy;
 
-	ratiox = (WIDTH) / (*map)->width;
-	ratioy = (HEIGHT) / (*map)->height;
+	ratiox = (WIDTH) / map->width;
+	ratioy = (HEIGHT) / map->height;
 	if (ratiox < ratioy)
 	{
 		if (ratiox > 10)
 			ratiox /= 3;
-		(*map)->ratio = ratiox;
+		map->ratio = ratiox;
 	}
 	else
 	{
 		if (ratioy > 10)
 			ratioy /= 2;
-		(*map)->ratio = ratioy;
+		map->ratio = ratioy;
 	}
 }
 
@@ -53,33 +53,33 @@ int	allocate_map(t_map **map)
 	return (0);
 }
 
-void	allocate_matrix(t_map **map)
+void	allocate_matrix(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	(*map)->matrix = ft_calloc((*map)->height, sizeof(t_coordinate *));
-	(*map)->iso = ft_calloc((*map)->height, sizeof(t_coordinate *));
-	if (!(*map)->iso || !(*map)->matrix)
+	map->matrix = ft_calloc(map->height, sizeof(t_coordinate *));
+	map->iso = ft_calloc(map->height, sizeof(t_coordinate *));
+	if (!map->iso || !map->matrix)
 		exit(EXIT_FAILURE);
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
-		(*map)->matrix[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
-		if (!(*map)->matrix[i] && ft_printf("memory allocation problem"))
+		map->matrix[i] = ft_calloc(map->width, sizeof(t_coordinate));
+		if (!map->matrix[i] && ft_printf("memory allocation problem"))
 			exit(EXIT_FAILURE);
 		i++;
 	}
 	i = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
-		(*map)->iso[i] = ft_calloc((*map)->width, sizeof(t_coordinate));
-		if (!(*map)->iso[i] && ft_printf("memory allocation problem"))
+		map->iso[i] = ft_calloc(map->width, sizeof(t_coordinate));
+		if (!map->iso[i] && ft_printf("memory allocation problem"))
 			exit(EXIT_FAILURE);
 		i++;
 	}
 }
 
-void	read_and_calc(int fd, t_map	**map)
+void	read_and_calc(int fd, t_map	*map)
 {
 	char	*line;
 	char	**splitted;
@@ -96,17 +96,17 @@ void	read_and_calc(int fd, t_map	**map)
 			exit(EXIT_FAILURE);
 		while (splitted[i] && splitted[i][0] != '\n')
 			i++;
-		if ((*map)->width != -1 && (*map)->width != i)
+		if (map->width != -1 && map->width != i)
 			exit (EXIT_FAILURE);
-		(*map)->width = i;
+		map->width = i;
 		free_splitted(splitted);
 		free(line);
-		(*map)->height++;
+		map->height++;
 		i = 0;
 	}
 }
 
-void	get_size(char *path, t_map **map)
+void	get_size(char *path, t_map *map)
 {
 	int		fd;
 

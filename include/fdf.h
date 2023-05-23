@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 16:59:41 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:03:01 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ typedef struct map
 
 void	read_map(char *path, t_map **map);
 int		allocate_map(t_map **map);
-void	allocate_matrix(t_map **map);
-void	get_size(char *path, t_map **map);
-void	get_ratio(t_map **map);
+void	allocate_matrix(t_map *map);
+void	get_size(char *path, t_map *map);
+void	get_ratio(t_map *map);
 void	bresenham(t_iso x1, t_iso x2, mlx_image_t *img);
 void	isometric(t_map **map);
 void	draw(t_map *map);
