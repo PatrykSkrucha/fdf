@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 20:54:33 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:59:56 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ void	get_ratio(t_map **map)
 	else
 	{
 		if (ratioy > 10)
-			ratioy /= 3;
+			ratioy /= 2;
 		(*map)->ratio = ratioy;
 	}
 }
 
-void	allocate_map(t_map **map)
+int	allocate_map(t_map **map)
 {
 	*map = malloc(sizeof(t_map));
 	if (!map)
-		exit(EXIT_FAILURE);
+		return (1);
 	(*map)->width = -1;
 	(*map)->height = 0;
 	(*map)->ratio = 0;
@@ -49,7 +49,8 @@ void	allocate_map(t_map **map)
 	(*map)->image = mlx_new_image((*map)->window, WIDTH, HEIGHT);
 	if (!(*map)->image
 		|| (mlx_image_to_window((*map)->window, (*map)->image, 0, 0) < 0))
-		exit(EXIT_FAILURE);
+		return (1);
+	return (0);
 }
 
 void	allocate_matrix(t_map **map)

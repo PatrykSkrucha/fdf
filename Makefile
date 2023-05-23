@@ -1,6 +1,6 @@
 MAIN = main.c
 TOOLS = read_map.c algorithm.c utils.c move_pic.c hooks.c \
-		projection.c map_positioning.c draw.c\
+		projection.c map_positioning.c draw.c free_mem.c \
 
 OMAIN = $(MAIN:.c=.o)
 OTOOLS = $(TOOLS:.c=.o)
@@ -16,7 +16,7 @@ else ifeq ($(shell uname -s),Linux)		# Linux
 	MLXFLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 endif
 
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 RESET = \033[0m

@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:39 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 20:35:36 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:02:53 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	find_shift_y(t_map **map)
 	(*map)->shift_y = shift_y;
 }
 
-void	shift__to_the_edge(t_map **map)
+void	shift_to_the_edge(t_map **map)
 {
 	int	i;
 	int	j;

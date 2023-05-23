@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 12:43:36 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:59:41 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct map
 }	t_map;
 
 void	read_map(char *path, t_map **map);
-void	allocate_map(t_map **map);
+int		allocate_map(t_map **map);
 void	allocate_matrix(t_map **map);
 void	get_size(char *path, t_map **map);
 void	get_ratio(t_map **map);
@@ -80,9 +80,10 @@ void	shift_right(t_map *map);
 void	shift_left(t_map *map);
 void	find_shift_x(t_map **map);
 void	find_shift_y(t_map **map);
-void	shift__to_the_edge(t_map **map);
+void	shift_to_the_edge(t_map **map);
 void	center_map(t_map **map);
 void	key_hook(mlx_key_data_t keydata, void *map);
 void	close_and_free(t_map *map);
+void	free_and_exit(t_map *map, int i);
 
 #endif

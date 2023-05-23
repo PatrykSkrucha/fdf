@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 12:44:44 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:59:38 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 void	at_end(void *param)
 {
-	if(param)
+	if (param)
 		close_and_free(param);
 	else
 		exit(EXIT_SUCCESS);
+}
+
+void	haha()
+{
+	system("leaks fdf");
 }
 
 int32_t	main(int argc, char **argv)
 {
 	t_map	*map;
 
-	allocate_map(&map);
+	if (allocate_map(&map))
+		free_and_exit(map, 0);
 	get_size(argv[1], &map);
 	read_map(argv[1], &map);
 	isometric(&map);
 	find_shift_x(&map);
 	find_shift_y(&map);
-	shift__to_the_edge(&map);
+	shift_to_the_edge(&map);
 	center_map(&map);
 	draw(map);
 	mlx_key_hook(map->window, &key_hook, map);
