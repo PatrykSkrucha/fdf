@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 20:57:17 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:43:36 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	find_shift_x(t_map **map);
 void	find_shift_y(t_map **map);
 void	shift__to_the_edge(t_map **map);
 void	center_map(t_map **map);
-void	exit_hook(mlx_key_data_t keydata, void *map);
+void	key_hook(mlx_key_data_t keydata, void *map);
+void	close_and_free(t_map *map);
 
 #endif
