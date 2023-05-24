@@ -6,13 +6,13 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:39 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 14:02:53 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:56:29 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 
-void	find_shift_x(t_map **map)
+void	find_shift_x(t_map *map)
 {
 	int	shift_x;
 	int	i;
@@ -20,21 +20,21 @@ void	find_shift_x(t_map **map)
 
 	i = 0;
 	shift_x = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < (*map)->width)
+		while (j < map->width)
 		{
-			if ((*map)->iso[i][j].x < shift_x)
-				shift_x = (*map)->iso[i][j].x;
+			if (map->iso[i][j].x < shift_x)
+				shift_x = map->iso[i][j].x;
 			j++;
 		}
 		i++;
 	}
-	(*map)->shift_x = shift_x;
+	map->shift_x = shift_x;
 }
 
-void	find_shift_y(t_map **map)
+void	find_shift_y(t_map *map)
 {
 	int	shift_y;
 	int	i;
@@ -42,18 +42,18 @@ void	find_shift_y(t_map **map)
 
 	i = 0;
 	shift_y = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < (*map)->width)
+		while (j < map->width)
 		{
-			if ((*map)->iso[i][j].y < shift_y)
-				shift_y = (*map)->iso[i][j].y;
+			if (map->iso[i][j].y < shift_y)
+				shift_y = map->iso[i][j].y;
 			j++;
 		}
 		i++;
 	}
-	(*map)->shift_y = shift_y;
+	map->shift_y = shift_y;
 }
 
 void	shift_to_the_edge(t_map **map)
