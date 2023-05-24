@@ -8,7 +8,7 @@ SRCS			= ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
 					ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 					ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
 					ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_atoi_long.c free_splitted.c\
-					ft_free_str.c \
+					ft_free_str.c ft_htol.c\
 
 OBJS			= $(SRCS:.c=.o)
 

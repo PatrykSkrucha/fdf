@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:15:45 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:27:49 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:20:59 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char	*get_next_line(int fd);
 int		better_strlen(char *str);
 int		free_splitted(char **str);
 int		ft_free_str(char *str);
+long	ft_htol(char *s);
 
 #endif

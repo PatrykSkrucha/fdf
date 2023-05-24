@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 15:53:23 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:58:06 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ int	allocate_map(t_map **map)
 	(*map)->matrix = NULL;
 	(*map)->iso = NULL;
 	(*map)->coord_temp = malloc(sizeof(t_coordinate));
+	(*map)->algo_temp = malloc(sizeof(t_bresenham));
 	(*map)->window = mlx_init(WIDTH, HEIGHT, "fdf", true);
 	(*map)->image = mlx_new_image((*map)->window, WIDTH, HEIGHT);
 	if (!(*map)->image
 		|| (mlx_image_to_window((*map)->window, (*map)->image, 0, 0) < 0)
-		|| !(*map)->coord_temp)
+		|| !(*map)->coord_temp || !(*map)->algo_temp)
 		return (1);
-	(*map)->coord_temp->x = 0;
-	(*map)->coord_temp->y = 0;
 	return (0);
 }
 
