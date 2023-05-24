@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 15:54:51 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:28:41 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ void	close_and_free(t_map *map);
 void	free_and_exit(t_map *map, int i);
 void	free_line_and_exit(t_map *map, char *line);
 void	invalid_map_exit(t_map *map, char **splitted, char *line);
+void	process_input(char **str, t_map *map, t_coordinate *temp);
+void	read_coord(t_map *map, int z, t_coordinate *temp, long color);
 
 #endif
