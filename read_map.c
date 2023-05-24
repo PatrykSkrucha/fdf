@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 15:06:06 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:38:14 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ static void	process_input(char **str, t_map *map, t_coordinate *temp)
 
 static void	fill_map(t_map *map, char **str, t_coordinate *temp)
 {
+	if (!str)
+	{
+		free(temp);
+		free_and_exit(map, 1);
+	}
 	temp->x = 0;
 	while (str[temp->x] && str[temp->x][0] != '\n')
 	{
@@ -102,6 +107,11 @@ void	read_map(char *path, t_map *map)
 		free_and_exit(map, 1);
 	temp->y = 0;
 	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		free(temp);
+		free_and_exit(map, 1);
+	}
 	while (1)
 	{
 		line = get_next_line(fd);
