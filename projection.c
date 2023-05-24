@@ -12,7 +12,7 @@
 
 #include "include/fdf.h"
 
-void	isometric(t_map **map)
+void	isometric(t_map *map)
 {
 	int		i;
 	int		j;
@@ -20,18 +20,18 @@ void	isometric(t_map **map)
 
 	theta = 30 * 3.14 / 180 ;
 	i = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < (*map)->width)
+		while (j < map->width)
 		{
-			(*map)->iso[i][j].color = (*map)->matrix[i][j].color;
-			(*map)->iso[i][j].x = (((*map)->matrix[i][j].x
-						* cos(theta) - (*map)->matrix[i][j].y
+			map->iso[i][j].color = map->matrix[i][j].color;
+			map->iso[i][j].x = ((map->matrix[i][j].x
+						* cos(theta) - map->matrix[i][j].y
 						* cos(theta)));
-			(*map)->iso[i][j].y = (*map)->matrix[i][j].x
-				* sin(theta) + (*map)->matrix[i][j].y
-				* sin(theta) - (*map)->matrix[i][j].z;
+			map->iso[i][j].y = map->matrix[i][j].x
+				* sin(theta) + map->matrix[i][j].y
+				* sin(theta) - map->matrix[i][j].z;
 			j++;
 		}
 		i++;

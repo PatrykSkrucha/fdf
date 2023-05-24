@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:54:00 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:06:06 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	process_input(char **str, t_map *map, t_coordinate *temp)
 	{
 		trimmed = ft_strtrim(str[temp->x], "\n");
 		read_coord(map, ft_atoi(trimmed), temp, 0);
-		free(trimmed);
+		ft_free_str(trimmed);
 	}
 	else if (ft_strchr(str[temp->x], '\n') && ft_strchr(str[temp->x], ','))
 	{
@@ -68,7 +68,7 @@ static void	process_input(char **str, t_map *map, t_coordinate *temp)
 		trimmed = ft_strtrim(divided[1], "\n");
 		read_coord(map, ft_atoi(divided[0]), temp, hex_to_l(trimmed));
 		free_splitted(divided);
-		free(trimmed);
+		ft_free_str(trimmed);
 	}
 	else if (!ft_strchr(str[temp->x], ','))
 		read_coord(map, ft_atoi(str[temp->x]), temp, 0);

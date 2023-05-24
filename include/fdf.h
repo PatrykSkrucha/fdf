@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:57:45 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:58:51 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	allocate_matrix(t_map *map);
 void	get_size(char *path, t_map *map);
 void	get_ratio(t_map *map);
 void	bresenham(t_iso x1, t_iso x2, mlx_image_t *img);
-void	isometric(t_map **map);
+void	isometric(t_map *map);
 void	draw(t_map *map);
 void	shift_down(t_map *map);
 void	shift_up(t_map *map);

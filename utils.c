@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:54:29 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:03:57 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ void	allocate_matrix(t_map *map)
 	map->matrix = ft_calloc(map->height, sizeof(t_coordinate *));
 	map->iso = ft_calloc(map->height, sizeof(t_coordinate *));
 	if (!map->iso || !map->matrix)
-		free_and_exit(map, 0);
+		free_and_exit(map, 1);
 	while (i < map->height)
 	{
 		map->matrix[i] = ft_calloc(map->width, sizeof(t_coordinate));
-		if (!map->matrix[i] && ft_printf("memory allocation problem"))
-			free_and_exit(map, 0);
+		if (!map->matrix[i])
+			free_and_exit(map, 1);
 		i++;
 	}
 	i = 0;
 	while (i < map->height)
 	{
 		map->iso[i] = ft_calloc(map->width, sizeof(t_coordinate));
-		if (!map->iso[i] && ft_printf("memory allocation problem"))
-			free_and_exit(map, 0);
+		if (!map->iso[i])
+			free_and_exit(map, 1);
 		i++;
 	}
 }
@@ -114,7 +114,7 @@ void	get_size(char *path, t_map *map)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		exit(EXIT_FAILURE);
+		free_and_exit(map, 1);
 	read_and_calc(fd, map);
 	close(fd);
 	get_ratio(map);

@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:57:54 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:59:22 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int32_t	main(int argc, char **argv)
 		free_and_exit(map, 0);
 	get_size(argv[1], map);
 	read_map(argv[1], map);
-	isometric(&map);
+	isometric(map);
 	find_shift_x(map);
 	find_shift_y(map);
 	shift_to_the_edge(map);
