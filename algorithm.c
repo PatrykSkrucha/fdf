@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:55 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 17:34:58 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:57:15 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_bresenham	*allocate_container(int x, int y)
 
 	box = malloc(sizeof(t_bresenham));
 	if (!box)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	box->x = x;
 	box->y = y;
 	box->ai = 0;

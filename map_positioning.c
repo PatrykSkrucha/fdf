@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:39 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:57:41 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:51:02 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ void	center_map(t_map *map)
 	int	i;
 	int	j;
 
+	find_shift_x(map);
+	find_shift_y(map);
+	shift_to_the_edge(map);
 	center_y = (HEIGHT
 			- map->iso[map->height - 1][map->width - 1].y) / 2;
 	center_x = (WIDTH - map->iso[0][map->width - 1].x) / 2;
