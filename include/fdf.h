@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 18:32:56 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:25:00 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		allocate_map(t_map **map);
 void	allocate_matrix(t_map *map);
 void	get_size(char *path, t_map *map);
 void	get_ratio(t_map *map);
-void	bresenham(t_iso x1, t_iso x2, mlx_image_t *img);
+void	bresenham(t_iso x1, t_iso x2, t_map *map);
 void	isometric(t_map *map);
 void	draw(t_map *map);
 void	shift_down(t_map *map);
@@ -86,7 +86,7 @@ void	find_shift_y(t_map *map);
 void	shift_to_the_edge(t_map *map);
 void	center_map(t_map *map);
 void	key_hook(mlx_key_data_t keydata, void *map);
-void	close_and_free(t_map *map);
+void	close_app(void *map);
 void	free_and_exit(t_map *map, int i);
 void	free_line_and_exit(t_map *map, char *line);
 void	invalid_map_exit(t_map *map, char **splitted, char *line);

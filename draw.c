@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:04:32 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 18:19:45 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:14:41 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	draw(t_map *map)
 		while (j < map->width)
 		{
 			if (i == map->height - 1 && j < map->width - 1)
-				bresenham(map->iso[i][j], map->iso[i][j + 1], map->image);
+				bresenham(map->iso[i][j], map->iso[i][j + 1], map);
 			else if (j == map->width - 1 && i < map->height - 1)
-				bresenham(map->iso[i][j], map-> iso[i + 1][j], map->image);
+				bresenham(map->iso[i][j], map-> iso[i + 1][j], map);
 			else if (i != map->height -1 && j != map->width -1)
 			{
-				bresenham(map->iso[i][j], map->iso[i][j + 1], map->image);
-				bresenham(map->iso[i][j], map->iso[i + 1][j], map->image);
+				bresenham(map->iso[i][j], map->iso[i][j + 1], map);
+				bresenham(map->iso[i][j], map->iso[i + 1][j], map);
 			}
 			j++;
 		}

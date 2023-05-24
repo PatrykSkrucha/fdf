@@ -1,3 +1,0 @@
-/Users/pskrucha/Desktop/fdf/MLX42/build/CMakeFiles/mlx42.dir
-/Users/pskrucha/Desktop/fdf/MLX42/build/CMakeFiles/edit_cache.dir
-/Users/pskrucha/Desktop/fdf/MLX42/build/CMakeFiles/rebuild_cache.dir

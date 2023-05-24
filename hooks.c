@@ -6,17 +6,15 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 03:11:04 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 16:52:31 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:25:45 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 
-void	close_and_free(t_map *map)
+void	close_app(void *map)
 {
-	if (map)
-		free(map);
-	exit(EXIT_SUCCESS);
+	free_and_exit(map, 0);
 }
 
 void	move_hook(mlx_key_data_t keydata, void *map)

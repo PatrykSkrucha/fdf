@@ -1,7 +1,7 @@
 MAIN = main.c
 TOOLS = read_map.c algorithm.c utils.c move_pic.c hooks.c \
 		projection.c map_positioning.c draw.c free_mem.c \
-		processing_input.c \
+		processing_input.c memory_utils.c \
 
 OMAIN = $(MAIN:.c=.o)
 OTOOLS = $(TOOLS:.c=.o)
