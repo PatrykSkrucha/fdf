@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:40:19 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 17:03:08 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:54:29 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_ratio(t_map *map)
 	if (ratiox < ratioy)
 	{
 		if (ratiox > 10)
-			ratiox /= 3;
+			ratiox /= 2;
 		map->ratio = ratiox;
 	}
 	else
@@ -61,12 +61,12 @@ void	allocate_matrix(t_map *map)
 	map->matrix = ft_calloc(map->height, sizeof(t_coordinate *));
 	map->iso = ft_calloc(map->height, sizeof(t_coordinate *));
 	if (!map->iso || !map->matrix)
-		exit(EXIT_FAILURE);
+		free_and_exit(map, 0);
 	while (i < map->height)
 	{
 		map->matrix[i] = ft_calloc(map->width, sizeof(t_coordinate));
 		if (!map->matrix[i] && ft_printf("memory allocation problem"))
-			exit(EXIT_FAILURE);
+			free_and_exit(map, 0);
 		i++;
 	}
 	i = 0;
@@ -74,7 +74,7 @@ void	allocate_matrix(t_map *map)
 	{
 		map->iso[i] = ft_calloc(map->width, sizeof(t_coordinate));
 		if (!map->iso[i] && ft_printf("memory allocation problem"))
-			exit(EXIT_FAILURE);
+			free_and_exit(map, 0);
 		i++;
 	}
 }
@@ -89,18 +89,20 @@ void	read_and_calc(int fd, t_map	*map)
 	while (1)
 	{
 		line = get_next_line(fd);
+		if (!line && map->height == 0)
+			free_and_exit(map, 1);
 		if (!line)
 			break ;
 		splitted = ft_split(line, ' ');
 		if (!splitted)
-			exit(EXIT_FAILURE);
+			free_line_and_exit(map, line);
 		while (splitted[i] && splitted[i][0] != '\n')
 			i++;
 		if (map->width != -1 && map->width != i)
-			exit (EXIT_FAILURE);
+			invalid_map_exit(map, splitted, line);
 		map->width = i;
 		free_splitted(splitted);
-		free(line);
+		ft_free_str(line);
 		map->height++;
 		i = 0;
 	}
@@ -111,11 +113,8 @@ void	get_size(char *path, t_map *map)
 	int		fd;
 
 	fd = open(path, O_RDONLY);
-	if (read(fd, 0, 0) < 0 || fd < 0)
-	{
-		ft_putstr_fd("Incorrect path to the file\n", 2);
-		exit (EXIT_FAILURE);
-	}
+	if (fd < 0)
+		exit(EXIT_FAILURE);
 	read_and_calc(fd, map);
 	close(fd);
 	get_ratio(map);

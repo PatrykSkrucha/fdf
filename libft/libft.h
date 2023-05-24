@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:15:45 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/03/10 15:09:09 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:27:49 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		ft_printf(const char *s, ...);
 long	ft_atoi_long(char *str);
 char	*get_next_line(int fd);
 int		better_strlen(char *str);
-void	free_splitted(char **str);
+int		free_splitted(char **str);
+int		ft_free_str(char *str);
 
 #endif

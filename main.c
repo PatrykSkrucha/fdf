@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:18:49 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 17:02:59 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:55:27 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ void	at_end(void *param)
 		exit(EXIT_SUCCESS);
 }
 
-void	haha()
-{
-	system("leaks fdf");
-}
 
 int32_t	main(int argc, char **argv)
 {
@@ -32,7 +28,7 @@ int32_t	main(int argc, char **argv)
 	if (allocate_map(&map))
 		free_and_exit(map, 0);
 	get_size(argv[1], map);
-	read_map(argv[1], &map);
+	read_map(argv[1], map);
 	isometric(&map);
 	find_shift_x(&map);
 	find_shift_y(&map);

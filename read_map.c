@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:19:01 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/22 21:11:44 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:54:00 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ long	hex_to_l(char *s)
 	return (res);
 }
 
-void	read_coord(t_map **map, int z, t_coordinate *temp, long color)
+static void	read_coord(t_map *map, int z, t_coordinate *temp, long color)
 {
 	t_coordinate	*point;
 
 	point = malloc(sizeof(t_coordinate));
-	point->x = temp->x * (*map)->ratio;
-	point->y = temp->y * (*map)->ratio;
+	point->x = temp->x * map->ratio;
+	point->y = temp->y * map->ratio;
 	point->z = z;
 	point->color = color;
-	(*map)->matrix[temp->y][temp->x] = *point;
+	map->matrix[temp->y][temp->x] = *point;
 }
 
-static void	process_input(char **str, t_map **map, t_coordinate *temp)
+static void	process_input(char **str, t_map *map, t_coordinate *temp)
 {
 	char	*trimmed;
 	char	**divided;
@@ -80,7 +80,7 @@ static void	process_input(char **str, t_map **map, t_coordinate *temp)
 	}
 }
 
-void	fill_map(t_map **map, char **str, t_coordinate *temp)
+static void	fill_map(t_map *map, char **str, t_coordinate *temp)
 {
 	temp->x = 0;
 	while (str[temp->x] && str[temp->x][0] != '\n')
@@ -90,7 +90,7 @@ void	fill_map(t_map **map, char **str, t_coordinate *temp)
 	}
 }
 
-void	read_map(char *path, t_map **map)
+void	read_map(char *path, t_map *map)
 {
 	int				fd;
 	char			*line;
@@ -99,11 +99,9 @@ void	read_map(char *path, t_map **map)
 
 	temp = malloc(sizeof(t_coordinate));
 	if (!temp)
-		exit(EXIT_FAILURE);
+		free_and_exit(map, 1);
 	temp->y = 0;
 	fd = open(path, O_RDONLY);
-	if (read(fd, 0, 0) < 0 || fd < 0)
-		exit (EXIT_FAILURE);
 	while (1)
 	{
 		line = get_next_line(fd);

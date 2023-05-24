@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 17:03:01 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:52:43 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct map
 	mlx_image_t		*image;
 }	t_map;
 
-void	read_map(char *path, t_map **map);
+void	read_map(char *path, t_map *map);
 int		allocate_map(t_map **map);
 void	allocate_matrix(t_map *map);
 void	get_size(char *path, t_map *map);
@@ -85,5 +85,7 @@ void	center_map(t_map **map);
 void	key_hook(mlx_key_data_t keydata, void *map);
 void	close_and_free(t_map *map);
 void	free_and_exit(t_map *map, int i);
+void	free_line_and_exit(t_map *map, char *line);
+void	invalid_map_exit(t_map *map, char **splitted, char *line);
 
 #endif

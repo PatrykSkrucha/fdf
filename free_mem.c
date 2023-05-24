@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:28:50 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 17:09:50 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:33:05 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,18 @@ void	free_and_exit(t_map *map, int i)
 		exit(EXIT_SUCCESS);
 	else
 		exit(EXIT_FAILURE);
+}
+
+void	free_line_and_exit(t_map *map, char *line)
+{
+	free(line);
+	free_and_exit(map, 1);
+}
+
+void	invalid_map_exit(t_map *map, char **splitted, char *line)
+{
+	free_splitted(splitted);
+	ft_free_str(line);
+	ft_putstr_fd("Invalid map.\n", STDERR_FILENO);
+	free_and_exit(map, 1);
 }

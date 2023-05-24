@@ -6,13 +6,13 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:29:20 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/23 16:29:24 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:24:55 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	free_splitted(char **str)
+int	free_splitted(char **str)
 {
 	int	i;
 
@@ -21,8 +21,10 @@ void	free_splitted(char **str)
 		i++;
 	while (i >= 0)
 	{
+		str[i] = NULL;
 		free(str[i]);
 		i--;
 	}
 	free(str);
+	return (0);
 }
