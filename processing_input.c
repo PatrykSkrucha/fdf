@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:23:13 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 18:24:11 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:25:25 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	process_color_nl(char **str, t_map *map, t_coordinate *temp)
 {
 	char	*trimmed;
 	char	**divided;
+	int		z;
+	long	color;
 
 	divided = ft_split(str[temp->x], ',');
 	if (!divided)
@@ -39,9 +41,11 @@ static void	process_color_nl(char **str, t_map *map, t_coordinate *temp)
 		free_splitted(divided);
 		free_and_exit(map, 1);
 	}
-	read_coord(map, ft_atoi(divided[0]), temp, ft_htol(trimmed));
+	z = ft_atoi(divided[0]);
+	color = ft_htol(trimmed);
 	free_splitted(divided);
 	ft_free_str(trimmed);
+	read_coord(map, z, temp, color);
 }
 
 static void	process_color(char **str, t_map *map, t_coordinate *temp)
