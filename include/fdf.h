@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:40 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 15:40:19 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:40:51 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct map
 	int				ratio;
 	int				shift_y;
 	int				shift_x;
+	t_coordinate	*temp;
 	t_coordinate	**matrix;
 	t_iso			**iso;
 	mlx_t			*window;

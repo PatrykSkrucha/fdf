@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:28:50 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:33:05 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:42:45 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	free_and_exit(t_map *map, int i)
 {
 	if (map)
 	{
+		if (map->temp)
+			free(map->temp);
 		free_iso(map);
 		free_matrix(map);
 		free(map);
