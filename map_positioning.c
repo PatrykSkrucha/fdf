@@ -6,7 +6,7 @@
 /*   By: pskrucha <pskrucha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:00:39 by pskrucha          #+#    #+#             */
-/*   Updated: 2023/05/24 14:56:29 by pskrucha         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:57:41 by pskrucha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,26 @@ void	find_shift_y(t_map *map)
 	map->shift_y = shift_y;
 }
 
-void	shift_to_the_edge(t_map **map)
+void	shift_to_the_edge(t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < (*map)->width)
+		while (j < map->width)
 		{
-			(*map)->iso[i][j].x -= (*map)->shift_x;
-			(*map)->iso[i][j].y -= (*map)->shift_y;
+			map->iso[i][j].x -= map->shift_x;
+			map->iso[i][j].y -= map->shift_y;
 			j++;
 		}
 		i++;
 	}
 }
 
-void	center_map(t_map **map)
+void	center_map(t_map *map)
 {
 	int	center_x;
 	int	center_y;
@@ -83,16 +83,16 @@ void	center_map(t_map **map)
 	int	j;
 
 	center_y = (HEIGHT
-			- (*map)->iso[(*map)->height - 1][(*map)->width - 1].y) / 2;
-	center_x = (WIDTH - (*map)->iso[0][(*map)->width - 1].x) / 2;
+			- map->iso[map->height - 1][map->width - 1].y) / 2;
+	center_x = (WIDTH - map->iso[0][map->width - 1].x) / 2;
 	i = 0;
-	while (i < (*map)->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < (*map)->width)
+		while (j < map->width)
 		{
-			(*map)->iso[i][j].x += center_x;
-			(*map)->iso[i][j].y += center_y;
+			map->iso[i][j].x += center_x;
+			map->iso[i][j].y += center_y;
 			j++;
 		}
 		i++;
