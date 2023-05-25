@@ -16,6 +16,10 @@ int32_t	main(int argc, char **argv)
 {
 	t_map	*map;
 
+	if (argc != 2)
+	{
+		ft_putstr_fd("Usage:\n./fdf \"path to map\"", STDERR_FILENO);
+	}
 	if (allocate_map(&map))
 		free_and_exit(map, 0);
 	get_size(argv[1], map);

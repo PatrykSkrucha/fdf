@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
-#include <stdio.h>
 # include <math.h>
 # ifdef __APPLE__				
 #  define WIDTH 2400

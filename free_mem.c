@@ -33,7 +33,7 @@ static void	free_matrix(t_map *map)
 {
 	int	i;
 
-	i = 0;
+	i = map->height - 1;
 	if (map->matrix)
 	{
 		while (i >= 0)
@@ -56,9 +56,9 @@ void	free_and_exit(t_map *map, int i)
 			free(map->algo_temp);
 		free_iso(map);
 		free_matrix(map);
-		free(map);
 		if (map->window)
 			mlx_terminate(map->window);
+		free(map);
 	}
 	if (!i)
 		exit(EXIT_SUCCESS);

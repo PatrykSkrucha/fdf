@@ -16,8 +16,8 @@ int	ft_free_str(char *str)
 {
 	if (str)
 	{
-		str = NULL;
 		free(str);
+		str = NULL;
 	}
 	return (0);
 }

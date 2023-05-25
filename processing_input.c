@@ -65,9 +65,6 @@ static void	process_color(char **str, t_map *map, t_coordinate *temp)
 
 void	process_input(char **str, t_map *map, t_coordinate *temp)
 {
-	char	*trimmed;
-	char	**divided;
-
 	if (ft_strchr(str[temp->x], '\n') && !ft_strchr(str[temp->x], ','))
 		process_no_color(str, map, temp);
 	else if (ft_strchr(str[temp->x], '\n') && ft_strchr(str[temp->x], ','))

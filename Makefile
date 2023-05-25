@@ -17,7 +17,7 @@ else ifeq ($(shell uname -s),Linux)		# Linux
 	MLXFLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 endif
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 RESET = \033[0m
@@ -33,7 +33,7 @@ $(FDF):$(OMAIN) $(OTOOLS) $(MLX42) $(LIBFT)
 	@printf "\n$(LIGHT_CYAN)Created executable $(FDF)$(RESET)\n\n"
 
 %.o: %.cc
-	cc $(FLAGS) -c $< $@ $(HEADERS)
+	cc $(CFLAGS) -c $< $@ $(HEADERS)
 
 $(LIBFT):
 	make -C libft

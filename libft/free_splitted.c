@@ -21,10 +21,11 @@ int	free_splitted(char **str)
 		i++;
 	while (i >= 0)
 	{
-		str[i] = NULL;
 		free(str[i]);
+		str[i] = NULL;
 		i--;
 	}
 	free(str);
+	str = NULL;
 	return (0);
 }

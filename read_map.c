@@ -24,6 +24,7 @@ void	read_coord(t_map *map, int z, t_coordinate *temp, long color)
 	point->z = z;
 	point->color = color;
 	map->matrix[temp->y][temp->x] = *point;
+	free(point);
 }
 
 static int	fill_map(t_map *map, char **str, t_coordinate *temp)
