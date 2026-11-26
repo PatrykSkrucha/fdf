@@ -14,23 +14,19 @@
 
 void	get_ratio(t_map *map)
 {
-	int	ratiox;
-	int	ratioy;
+	double	diagonal;
+	double	ratiox;
+	double	ratioy;
 
-	ratiox = (WIDTH) / map->width;
-	ratioy = (HEIGHT) / map->height;
+	diagonal = map->width + map->height;
+	ratiox = WIDTH / (diagonal * cos(30 * M_PI / 180));
+	ratioy = HEIGHT / (diagonal * sin(30 * M_PI / 180));
 	if (ratiox < ratioy)
-	{
-		if (ratiox > 10)
-			ratiox /= 2;
-		map->ratio = ratiox;
-	}
+		map->ratio = ratiox * 0.85;
 	else
-	{
-		if (ratioy > 10)
-			ratioy /= 2;
-		map->ratio = ratioy;
-	}
+		map->ratio = ratioy * 0.85;
+	if (map->ratio < 1)
+		map->ratio = 1;
 }
 
 void	read_and_calc(int fd, t_map	*map)
