@@ -1,9 +1,9 @@
 # FdF
 
-> A **3D wireframe renderer** written in C: it reads a height map and draws it as an isometric wire mesh with the MLX42 graphics library.
+> A **3D wireframe renderer** written in C: it reads a height map and draws it as an isometric wire mesh with the [MLX42](https://github.com/codam-coding-college/MLX42) graphics library.
 
 ![C](https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white)
-![MLX42](https://img.shields.io/badge/graphics-MLX42-555555?style=flat)
+[![MLX42](https://img.shields.io/badge/graphics-MLX42-555555?style=flat)](https://github.com/codam-coding-college/MLX42)
 ![OpenGL](https://img.shields.io/badge/OpenGL-5586A4?style=flat&logo=opengl&logoColor=white)
 
 ![FdF rendering a terrain map](docs/t1.png)
