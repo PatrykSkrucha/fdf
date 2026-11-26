@@ -12,6 +12,14 @@
 
 #include "include/fdf.h"
 
+static void	put_pixel(mlx_image_t *img, int x, int y, long color)
+{
+	if (x < 0 || y < 0 || (uint32_t)x >= img->width
+		|| (uint32_t)y >= img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color);
+}
+
 static void	set_direction(t_iso start, t_iso stop, t_bresenham *box)
 {
 	if (start.x < stop.x)
@@ -54,7 +62,7 @@ static void	pick_x(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
 			box->length += box->bi;
 			box->x += box->xi;
 		}
-		mlx_put_pixel(img, box->x, box->y, start.color);
+		put_pixel(img, box->x, box->y, start.color);
 	}	
 }
 
@@ -76,7 +84,7 @@ static void	pick_y(t_bresenham *box, t_iso start, t_iso stop, mlx_image_t *img)
 			box->length += box->bi;
 			box->y += box->yi;
 		}
-		mlx_put_pixel(img, box->x, box->y, start.color);
+		put_pixel(img, box->x, box->y, start.color);
 	}
 }
 
@@ -85,7 +93,7 @@ void	bresenham(t_iso start, t_iso stop, t_map *map)
 	map->algo_temp->x = start.x;
 	map->algo_temp->y = start.y;
 	set_direction(start, stop, map->algo_temp);
-	mlx_put_pixel(map->image, map->algo_temp->x,
+	put_pixel(map->image, map->algo_temp->x,
 		map->algo_temp->y, start.color);
 	if (map->algo_temp->x_length > map->algo_temp->y_length)
 		pick_x(map->algo_temp, start, stop, map->image);
